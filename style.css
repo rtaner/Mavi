@@ -48,6 +48,18 @@ h1 {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
+/* Yeni eklenen açıklama paragrafı için stil */
+.image-description {
+    font-size: 1.2em;
+	font-weight: bold;
+    color: #081f37;
+    margin-top: 15px; /* Resim ile arasında boşluk */
+    margin-bottom: 15px; /* Cevap şıkları ile arasında boşluk */
+    font-style: italic;
+    min-height: 1.5em; /* İçerik olmasa bile yer tutar, böylece layout kaymaz */
+}
+
+
 .options-container {
     display: flex;
     flex-direction: column;

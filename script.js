@@ -15,6 +15,7 @@ const highScoreNameDisplay = document.getElementById('highScoreName');
 const highScoreValueDisplay = document.getElementById('highScoreValue');
 const progressBar = document.getElementById('progressBar');
 const feedbackMessage = document.getElementById('feedbackMessage');
+const imageDescriptionDisplay = document.getElementById('imageDescription'); // Yeni eklenen açıklama elementi
 
 // Oyun Ayarları
 const TIME_LIMIT = 8; // Saniye cinsinden yanıt süresi
@@ -124,6 +125,18 @@ const questions = [
         options: ["New York", "Savannah Cuffed", "Ibiza"]
     },
     {
+        image: "savannah.webp",
+        description: "Yüksek bel, düz paça",
+        correctAnswer: "Savannah",
+        options: ["Savannah", "Carina", "Breda"]
+    },
+    {
+        image: "savannah_cuffed.webp",
+        description: "Yüksek bel, düz kesim, katlamalı paça",
+        correctAnswer: "Savannah Cuffed",
+        options: ["Savannah Cuffed", "New York", "Ibiza"]
+    },
+    {
         image: "ibiza.webp",
         description: "Düşük bel, loose straight",
         correctAnswer: "Ibiza",
@@ -188,7 +201,7 @@ const questions = [
         options: ["Bliss", "Miav", "Sierra"]
     },
     {
-        image: "losangeles.webp",
+        image: "los_angeles.webp",
         description: "Yüksek bel, 70’ler İspanyol paça, flare",
         correctAnswer: "Los Angeles",
         options: ["Los Angeles", "Valenta", "Molly"]
@@ -411,7 +424,14 @@ const questions = [
         correctAnswer: "Marcus",
         options: ["Marcus", "Pierre", "James"]
     },
-       // Erkek Denim Fitleri - REGULAR STRAIGHT
+    {
+        image: "pierre.webp",
+        description: "Düz kesim, düz paça",
+        correctAnswer: "Pierre",
+        options: ["Pierre", "Marcus", "Jake"]
+    },
+
+    // Erkek Denim Fitleri - REGULAR STRAIGHT
     {
         image: "hunter.webp",
         description: "Rahat kesim, düz paça",
@@ -442,7 +462,7 @@ const questions = [
         image: "milan.webp",
         description: "Tapered fit, dar kesim, daralan paça",
         correctAnswer: "Milan",
-        options: ["Milan", "London", "Lisbon"]
+        options: ["Milan", "london.webp", "Lisbon"]
     },
     {
         image: "london.webp",
@@ -456,7 +476,7 @@ const questions = [
         image: "lisbon.webp",
         description: "Loose fit, rahat kesim, düz paça",
         correctAnswer: "Lisbon",
-        options: ["Lisbon", "Mitte", "Oxford"]
+        options: ["Lisbon", "mitte.webp", "Oxford"]
     },
     {
         image: "mitte.webp",
@@ -595,6 +615,9 @@ function loadQuestion() {
     // Resim yükle
     questionImage.src = IMAGE_FOLDER + question.image;
     questionImage.alt = question.correctAnswer; // Erişilebilirlik için alt metin
+
+    // Açıklama metnini göster
+    imageDescriptionDisplay.textContent = question.description;
 
     // Şıkları karıştır ve butonlara yerleştir
     const shuffledOptions = shuffleArray([...question.options]); // Kopyasını karıştır
