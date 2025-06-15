@@ -10,22 +10,33 @@
     <div class="game-container">
         <h1>Denim Fit Game</h1>
 
-        <div class="progress-bar-container">
-            <div class="progress-bar" id="progressBar"></div>
+        <div class="start-screen" id="startScreen">
+            <h2>Hoş Geldiniz!</h2>
+            <p>Denim Fit Game'e hoş geldiniz! Bilecik Bozüyük Mağazası tarafından hazırlanan bu oyunda, gördüğünüz denim ürününün özelliklerine göre doğru ismi tahmin etmeniz gerekiyor. Rekoru egale edebilecek misin? İyi eğlenceler!</p>
+            <button id="startButton">Oyuna Başla</button>
+            <div class="high-score-display">
+                <h3>Rekor Skor</h3>
+                <p><span id="highScoreNameStart">Yok</span>: <span id="highScoreValueStart">0</span></p>
+            </div>
         </div>
 
-        <p class="score-display">Skor: <span id="currentScore">0</span></p>
+        <div class="game-play-screen hidden" id="gamePlayScreen">
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
 
-        <div class="question-area">
-            <img id="questionImage" src="" alt="Soru Resmi">
-            <p id="imageDescription" class="image-description"></p>
-            <p id="feedbackMessage" class="feedback-message"></p>
-        </div>
+            <p class="score-display">Skor: <span id="currentScore">0</span></p>
 
-        <div class="options-container" id="optionsContainer">
-            <button class="option-button" id="option1"></button>
-            <button class="option-button" id="option2"></button>
-            <button class="option-button" id="option3"></button>
+            <div class="question-area">
+                <img id="questionImage" src="" alt="Soru Resmi">
+                <p id="imageDescription" class="image-description"></p>
+                </div>
+
+            <div class="options-container" id="optionsContainer">
+                <button class="option-button" id="option1"></button>
+                <button class="option-button" id="option2"></button>
+                <button class="option-button" id="option3"></button>
+            </div>
         </div>
 
         <div class="game-over-screen hidden" id="gameOverScreen">
@@ -33,15 +44,15 @@
             <p>Toplam Skorunuz: <span id="finalScore">0</span></p>
             <div id="recordBreakingMessage"></div>
             <button id="restartButton">Tekrar Oyna</button>
+            <div class="high-score-display game-over-high-score">
+                <h3>Rekor Skor</h3>
+                <p><span id="highScoreNameEnd">Yok</span>: <span id="highScoreValueEnd">0</span></p>
+            </div>
         </div>
 
-        <div class="high-score-display">
-            <h3>Rekor Skor</h3>
-            <p><span id="highScoreName">Yok</span>: <span id="highScoreValue">0</span></p>
-			<p></p>
-			<p>Hazırlayan: Bilecik Bozüyük</p>
+        <div class="credits">
+            <p>Hazırlayan: Bilecik Bozüyük Mağazası</p>
         </div>
-
     </div>
 
     <script src="script.js"></script>

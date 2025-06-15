@@ -1,4 +1,7 @@
 // DOM Elementleri
+const startScreen = document.getElementById('startScreen');
+const gamePlayScreen = document.getElementById('gamePlayScreen');
+const startButton = document.getElementById('startButton');
 const questionImage = document.getElementById('questionImage');
 const optionsContainer = document.getElementById('optionsContainer');
 const optionButtons = [
@@ -11,11 +14,13 @@ const gameOverScreen = document.getElementById('gameOverScreen');
 const finalScoreDisplay = document.getElementById('finalScore');
 const recordBreakingMessage = document.getElementById('recordBreakingMessage');
 const restartButton = document.getElementById('restartButton');
-const highScoreNameDisplay = document.getElementById('highScoreName');
-const highScoreValueDisplay = document.getElementById('highScoreValue');
+const highScoreNameStartDisplay = document.getElementById('highScoreNameStart');
+const highScoreValueStartDisplay = document.getElementById('highScoreValueStart');
+const highScoreNameEndDisplay = document.getElementById('highScoreNameEnd');
+const highScoreValueEndDisplay = document.getElementById('highScoreValueEnd');
 const progressBar = document.getElementById('progressBar');
-const feedbackMessage = document.getElementById('feedbackMessage');
-const imageDescriptionDisplay = document.getElementById('imageDescription'); // Yeni eklenen açıklama elementi
+// const feedbackMessage = document.getElementById('feedbackMessage'); // Bu satır kaldırıldı
+const imageDescriptionDisplay = document.getElementById('imageDescription');
 
 // Oyun Ayarları
 const TIME_LIMIT = 8; // Saniye cinsinden yanıt süresi
@@ -24,175 +29,120 @@ const IMAGE_FOLDER = 'img/'; // Resimlerin bulunduğu klasör (örneğin: img/re
 // Oyun Verileri (Örnek resimler ve şıklar)
 // Kendi resimlerinizi ve şıklarınızı buraya eklemelisiniz.
 // Resimlerinizi 'img/' klasörüne koyduğunuzdan emin olun.
-const questions = [
-    // Kadın Denim Fitleri - SUPER SKINNY
-    {
-        image: "acap.webp", // AKTİF KALACAK (img klasörünüzde yok, ancak aktif kalması istendi. Bu durumda görsel yüklenemeyecektir!)
-        description: "Yüksek bel, süper skinny, dar paça",
-        correctAnswer: "A.C.A.İ.P",
-        options: ["A.C.A.İ.P", "Serenay", "Alissa"]
-    },
-    {
+const allQuestions = [ // 'questions' yerine 'allQuestions' olarak değiştirildi
+   {
         image: "serenay.webp",
         description: "Yüksek bel, süper skinny, dar paça",
         correctAnswer: "Serenay",
-        options: ["Serenay", "A.C.A.İ.P", "Tess"]
-    },
-
-    // Kadın Denim Fitleri - SKINNY
-    {
-        image: "alissa.webp",
-        description: "Yüksek bel, skinny, dar paça",
-        correctAnswer: "Alissa",
-        options: ["Alissa", "Tess", "Serenay"]
+        options: ["Sandy Extra Wide", "Serenay", "Tess"]
     },
     {
         image: "tess.webp",
-        description: "Yüksek bel, skinny, dar paça",
+        description: "Normal bel, skinny, dar paça",
         correctAnswer: "Tess",
-        options: ["Tess", "Alissa", "A.C.A.İ.P"]
+        options: ["Tess", "Mona", "Ibiza"]
     },
-
-    // Kadın Denim Fitleri - MOM
     {
         image: "cindy.webp",
-        description: "Yüksek bel, mom jeans, dar paça",
+        description: "Yüksek bel, mom jean, dar paça",
         correctAnswer: "Cindy",
-        options: ["Cindy", "Star", "Soho"]
+        options: ["Margot", "Cindy", "Tess"]
     },
     {
         image: "star.webp",
-        description: "Süper yüksek bel, mom jeans, dar paça",
+        description: "Süper yüksek bel, mom jean, dar paça",
         correctAnswer: "Star",
-        options: ["Star", "Sky", "Happy"]
+        options: ["Star", "Victoria", "Siena"]
     },
-    {
-        image: "soho.webp",
-        description: "Yüksek bel, mom jeans, yarı dar paça",
-        correctAnswer: "Soho",
-        options: ["Soho", "Cindy", "Star"]
-    },
-    {
-        image: "sky.webp",
-        description: "Yüksek bel, mom, düz paça",
-        correctAnswer: "Sky",
-        options: ["Sky", "Happy", "Martha"]
-    },
-    {
-        image: "happy.webp",
-        description: "Yüksek bel, mom düz paça",
-        correctAnswer: "Happy",
-        options: ["Happy", "Sky", "Lila"]
-    },
-    {
-        image: "martha.webp",
-        description: "Yüksek bel, rahat kesim, mom jeans",
-        correctAnswer: "Martha",
-        options: ["Martha", "Lila", "Cindy"]
-    },
-    {
-        image: "lila.webp",
-        description: "Yüksek bel, rahat mom jeans, dar paça (Online only)",
-        correctAnswer: "Lila",
-        options: ["Lila", "Martha", "Sky"]
-    },
-
-    // Kadın Denim Fitleri - BOYFRIEND
     {
         image: "ada.webp",
-        description: "Normal bel, boyfriend, yara dar paça",
+        description: "Normal bel, boyfriend, yarı dar paça",
         correctAnswer: "Ada",
-        options: ["Ada", "Cindy", "Rockstar"]
+        options: ["Ada", "Sky", "Wavy Extra Baggy"]
     },
-
-    // Kadın Denim Fitleri - STRAIGHT
     {
         image: "rockstar.webp",
-        description: "Normal bel, düz paça",
+        description: "Normal bel, düz kesim, düz paça",
         correctAnswer: "Rockstar",
-        options: ["Rockstar", "Barcelona", "New York"]
+        options: ["Rockstar", "Barcelona", "Remy"]
     },
     {
         image: "barcelona.webp",
         description: "Yüksek bel, düz rahat kesim, düz paça",
         correctAnswer: "Barcelona",
-        options: ["Barcelona", "Savannah", "Rockstar"]
+        options: ["Barcelona", "Taylor", "Lisa"]
     },
     {
         image: "new_york.webp",
         description: "Yüksek bel, düz kesim, düz paça",
         correctAnswer: "New York",
-        options: ["New York", "Savannah Cuffed", "Ibiza"]
+        options: ["New York", "Kimberly", "Viola"]
     },
     {
-        image: "savannah.webp",
-        description: "Yüksek bel, düz paça",
-        correctAnswer: "Savannah",
-        options: ["Savannah", "Carina", "Breda"]
-    },
-    {
-        image: "savannah_cuffed.webp",
-        description: "Yüksek bel, düz kesim, katlamalı paça",
-        correctAnswer: "Savannah Cuffed",
-        options: ["Savannah Cuffed", "New York", "Ibiza"]
+        image: "sky.webp",
+        description: "Yüksek bel, mom kesim, düz paça",
+        correctAnswer: "Sky",
+        options: ["Sky", "Karen", "Jane"]
     },
     {
         image: "ibiza.webp",
-        description: "Düşük bel, loose straight",
+        description: "Düşük bel, düz rahat kesim, düz paça",
         correctAnswer: "Ibiza",
-        options: ["Ibiza", "Carina", "Breda"]
-    },
-    {
-        image: "carina.webp",
-        description: "Normal bel, rahat kesim",
-        correctAnswer: "Carina",
-        options: ["Carina", "Breda", "Jane"]
-    },
-    {
-        image: "breda.webp",
-        description: "Yüksek bel, düz paça",
-        correctAnswer: "Breda",
-        options: ["Breda", "Jane", "Taylor"]
+        options: ["Ibiza", "Miami", "Maria"]
     },
     {
         image: "jane.webp",
-        description: "Normal bel, düz paça",
+        description: "Normal bel, düz kesim, düz paça",
         correctAnswer: "Jane",
-        options: ["Jane", "Taylor", "Rockstar"]
+        options: ["Jane", "Lisa", "Mimi"]
     },
     {
         image: "taylor.webp",
         description: "Yüksek bel, düz kesim, düz paça",
         correctAnswer: "Taylor",
-        options: ["Taylor", "Jane", "Breda"]
+        options: ["Taylor", "Sandy Extra Wide", "Joy"]
     },
-
-    // Kadın Denim Fitleri - SLIM STRAIGHT
+    {
+        image: "margot.webp",
+        description: "Yüksek bel, düz rahat kesim, düz paça",
+        correctAnswer: "Margot",
+        options: ["Margot", "California", "Ella"]
+    },
+    {
+        image: "lisette.webp",
+        description: "Normal bel, düz rahat kesim, düz paça",
+        correctAnswer: "Lisette",
+        options: ["Lisette", "Florida", "Malibu"]
+    },
+    {
+        image: "windyex.webp",
+        description: "Normal bel, düz rahat kesim, düz paça",
+        correctAnswer: "Windy Extra Loose",
+        options: ["Windy Extra Loose", "Paloma", "Maribel"]
+    },
     {
         image: "viola.webp",
-        description: "Yüksek bel, düz paça",
+        description: "Normal bel, düz kesim, düz paça",
         correctAnswer: "Viola",
-        options: ["Viola", "Kendra", "Mona"]
+        options: ["Viola", "Victoria", "Karen"]
     },
     {
         image: "kendra.webp",
-        description: "Yüksek bel, modern düz paça",
+        description: "Normal bel, düz kesim, düz paça",
         correctAnswer: "Kendra",
-        options: ["Kendra", "Viola", "Mona"]
+        options: ["Kendra", "California", "Sky"]
     },
     {
         image: "mona.webp",
-        description: "Normal bel, normal kesim, düz paça",
+        description: "Normal bel, klasik kesim, düz paça",
         correctAnswer: "Mona",
-        options: ["Mona", "Viola", "Kendra"]
+        options: ["Mona", "Lisa", "Remy"]
     },
-
-    // Kadın Denim Fitleri - FLARE
     {
         image: "maria.webp",
-        description: "Yüksek bel, İspanyol paça, flare",
+        description: "Normal bel, İspanyol paça",
         correctAnswer: "Maria",
-        options: ["Maria", "Bliss", "Los Angeles"]
+        options: ["Maria", "Tilda", "Leila"]
     },
     {
         image: "bliss.webp",
@@ -201,354 +151,289 @@ const questions = [
         options: ["Bliss", "Miav", "Sierra"]
     },
     {
-        image: "los_angeles.webp",
-        description: "Yüksek bel, 70’ler İspanyol paça, flare",
+        image: "losangeles.webp",
+        description: "Yüksek bel, 70'ler İspanyol paça",
         correctAnswer: "Los Angeles",
-        options: ["Los Angeles", "Valenta", "Molly"]
+        options: ["Los Angeles", "Molly", "Serenay"]
     },
     {
         image: "miav.webp",
         description: "Yüksek bel, İspanyol paça",
         correctAnswer: "Miav",
-        options: ["Miav", "Sierra", "Valenta"]
+        options: ["Miav", "Florida", "Kimberly"]
     },
     {
         image: "sierra.webp",
-        description: "Yüksek bel, patı düğmeli İspanyol paça",
+        description: "Yüksek bel, önden düğmeli İspanyol paça",
         correctAnswer: "Sierra",
-        options: ["Sierra", "Molly", "Elena"]
+        options: ["Sierra", "Joy", "Lisette"]
     },
     {
         image: "molly.webp",
         description: "Normal bel, klasik kesim, çizme paça",
         correctAnswer: "Molly",
-        options: ["Molly", "Elena", "Isabella"]
+        options: ["Molly", "Wavy Extra Baggy", "Mimi"]
     },
     {
-        image: "elena.webp",
-        description: "Yüksek bel, flare",
-        correctAnswer: "Elena",
-        options: ["Elena", "Penelope", "Molly"]
-    },
-    {
-        image: "isabella.webp",
-        description: "Normal bel, flare",
-        correctAnswer: "Isabella",
-        options: ["Isabella", "Elena", "Penelope"]
-    },
-    {
-        image: "penelope.webp",
-        description: "Normal bel, çizme paça",
-        correctAnswer: "Penelope",
-        options: ["Penelope", "Isabella", "Molly"]
-    },
-
-    // Kadın Denim Fitleri - WIDE LEG
-    {
-        image: "victoria.webp",
-        description: "Yüksek bel, geniş paça",
-        correctAnswer: "Victoria",
-        options: ["Victoria", "Delidolu", "California"]
-    },
-    {
-        image: "delidolu.webp",
-        description: "Normal bel, rahat kesim, geniş paça (Online only)",
-        correctAnswer: "Delidolu",
-        options: ["Delidolu", "Florida", "Paloma"]
-    },
-    {
-        image: "california.webp",
-        description: "Yüksek bel, geniş paça",
-        correctAnswer: "California",
-        options: ["California", "Victoria", "Delidolu"]
-    },
-    {
-        image: "florida.webp",
-        description: "Normal bel, rahat kesim, geniş paça (Online only)",
-        correctAnswer: "Florida",
-        options: ["Florida", "Malibu", "Pera"]
-    },
-    {
-        image: "paloma.webp",
-        description: "Yüksek bel, geniş paça (Online only)",
-        correctAnswer: "Paloma",
-        options: ["Paloma", "Malibu", "Pera"]
-    },
-    {
-        image: "malibu.webp",
-        description: "Yüksek bel, rahat kesim, geniş paça",
-        correctAnswer: "Malibu",
-        options: ["Malibu", "Pera", "Erica"]
-    },
-    {
-        image: "pera.webp",
-        description: "Yüksek bel, pileli, geniş paça",
-        correctAnswer: "Pera",
-        options: ["Pera", "Erica", "Narita"]
-    },
-    {
-        image: "erica.webp",
-        description: "Yüksek bel, twisted geniş paça",
-        correctAnswer: "Erica",
-        options: ["Erica", "Narita", "Karen"]
-    },
-    {
-        image: "karen.webp",
-        description: "Normal bel, geniş paça",
-        correctAnswer: "Karen",
-        options: ["Karen", "Sandra", "Cathy"]
-    },
-    {
-        image: "cathy.webp",
-        description: "Normal bel, katlamalı geniş paça",
-        correctAnswer: "Cathy",
-        options: ["Cathy", "Linda", "Rebecca"]
-    },
-    {
-        image: "linda.webp",
-        description: "Yüksek bel, geniş paça",
-        correctAnswer: "Linda",
-        options: ["Linda", "Rebecca", "Kimberly"]
-    },
-    {
-        image: "rebecca.webp",
-        description: "Yüksek bel, geniş paça",
-        correctAnswer: "Rebecca",
-        options: ["Rebecca", "Kimberly", "Victoria"]
-    },
-    {
-        image: "kimberly.webp",
-        description: "Yüksek bel, geniş paça",
-        correctAnswer: "Kimberly",
-        options: ["Kimberly", "Linda", "Rebecca"]
-    },
-
-    // Kadın Denim Fitleri - BAGGY
-    {
-        image: "leila.webp",
-        description: "Yüksek bel, baggy, daralan paça",
-        correctAnswer: "Leila",
-        options: ["Leila", "Tokyo", "Siena"]
-    },
-    {
-        image: "tokyo.webp",
-        description: "Yüksek bel, baggy, daralan paça",
-        correctAnswer: "Tokyo",
-        options: ["Tokyo", "Siena", "Miami"]
+        image: "tilda.webp",
+        description: "Yüksek bel, İspanyol paça",
+        correctAnswer: "Tilda",
+        options: ["Tilda", "Siena", "Sunny Extra Chino"]
     },
     {
         image: "siena.webp",
         description: "Yüksek bel, geniş paça",
         correctAnswer: "Siena",
-        options: ["Siena", "Miami", "Siena Button Up"]
+        options: ["Siena", "California", "Karen"]
+    },
+    {
+        image: "malibu.webp",
+        description: "Yüksek bel, geniş paça",
+        correctAnswer: "Malibu",
+        options: ["Malibu", "Victoria", "Joy"]
+    },
+    {
+        image: "victoria.webp",
+        description: "Yüksek bel, geniş paça",
+        correctAnswer: "Victoria",
+        options: ["Victoria", "Kimberly", "Lisa"]
+    },
+    {
+        image: "california.webp",
+        description: "Yüksek bel, geniş paça",
+        correctAnswer: "California",
+        options: ["California", "Karen", "Miami"]
+    },
+    {
+        image: "florida.webp",
+        description: "Normal bel, geniş paça",
+        correctAnswer: "Florida",
+        options: ["Florida", "Liny", "Sandy Extra Wide"]
+    },
+    {
+        image: "paloma.webp",
+        description: "Yüksek bel, geniş paça",
+        correctAnswer: "Paloma",
+        options: ["Paloma", "Mimi", "Ella"]
+    },
+    {
+        image: "karen.webp",
+        description: "Normal bel, geniş paça",
+        correctAnswer: "Karen",
+        options: ["Karen", "Remy", "Leila"]
+    },
+    {
+        image: "kimberly.webp",
+        description: "Yüksek bel, geniş paça",
+        correctAnswer: "Kimberly",
+        options: ["Kimberly", "Wavy Extra Baggy", "Lisa"]
     },
     {
         image: "miami.webp",
-        description: "Normal bel, süper geniş paça",
+        description: "Normal bel, baggy, geniş paça",
         correctAnswer: "Miami",
-        options: ["Miami", "Siena Button Up", "Sandra"]
+        options: ["Miami", "Joy", "Malibu"]
     },
     {
-        image: "sienab.webp",
-        description: "Yüksek bel, geniş paça",
-        correctAnswer: "Siena Button Up",
-        options: ["Siena Button Up", "Rosalie", "Marilla"]
+        image: "joy.webp",
+        description: "Normal bel, baggy, geniş paça",
+        correctAnswer: "Joy",
+        options: ["Joy", "Lisa", "Mimi"]
     },
     {
-        image: "rosalie.webp",
-        description: "Yüksek bel, tapered baggy",
-        correctAnswer: "Rosalie",
-        options: ["Rosalie", "Marilla", "Ella"]
+        image: "liny.webp",
+        description: "Düşük bel, rahat kesim, geniş paça",
+        correctAnswer: "Liny",
+        options: ["Liny", "Sandy Extra Wide", "Karen"]
     },
     {
-        image: "marilla.webp",
-        description: "Normal bel, baggy, kargo",
-        correctAnswer: "Marilla",
-        options: ["Marilla", "Ella", "Lisa"]
+        image: "mimi.webp",
+        description: "Yüksek bel, süper geniş paça",
+        correctAnswer: "Mimi",
+        options: ["Mimi", "Sunny Extra Chino", "Florida"]
+    },
+    {
+        image: "remy.webp",
+        description: "Normal bel, rahat kesim, geniş paça",
+        correctAnswer: "Remy",
+        options: ["Remy", "Karen", "Lisa"]
+    },
+    {
+        image: "maribel.webp",
+        description: "Normal bel, rahat kesim, geniş paça",
+        correctAnswer: "Maribel",
+        options: ["Maribel", "Paloma", "Siena"]
+    },
+    {
+        image: "sunnyex.webp",
+        description: "Düşük bel, geniş paça",
+        correctAnswer: "Sunny Extra Chino",
+        options: ["Sunny Extra Chino", "Liny", "Tilda"]
+    },
+    {
+        image: "sandyex.webp",
+        description: "Düşük bel, geniş paça",
+        correctAnswer: "Sandy Extra Wide",
+        options: ["Sandy Extra Wide", "Sky", "Bliss"]
+    },
+    {
+        image: "leila.webp",
+        description: "Yüksek bel, baggy, daralan paça",
+        correctAnswer: "Leila",
+        options: ["Leila", "Ella", "Lisa"]
     },
     {
         image: "ella.webp",
-        description: "Normal bel, baggy",
+        description: "Normal bel, baggy, daralan paça",
         correctAnswer: "Ella",
-        options: ["Ella", "Lisa", "Liya"]
+        options: ["Ella", "Wavy Extra Baggy", "Paloma"]
     },
     {
         image: "lisa.webp",
-        description: "Normal bel, baggy",
+        description: "Normal bel, arka kemer tokalı, baggy",
         correctAnswer: "Lisa",
-        options: ["Lisa", "Liya", "Lola"]
+        options: ["Lisa", "Remy", "Joy"]
     },
     {
-        image: "liya.webp",
-        description: "Yüksek bel, baggy",
-        correctAnswer: "Liya",
-        options: ["Liya", "Lola", "Lisa"]
+        image: "wavyex.webp",
+        description: "Normal bel, baggy, daralan paça",
+        correctAnswer: "Wavy Extra Baggy",
+        options: ["Wavy Extra Baggy", "Lisette", "Florida"]
     },
-    {
-        image: "lola.webp",
-        description: "Yüksek bel, baggy",
-        correctAnswer: "Lola",
-        options: ["Lola", "Liya", "Lisa"]
-    },
-
-    // Erkek Denim Fitleri - SKINNY
     {
         image: "james.webp",
         description: "Skinny, dar paça",
         correctAnswer: "James",
-        options: ["James", "Jake", "KVNC"]
+        options: ["James", "London", "Bern"]
     },
     {
         image: "jake.webp",
         description: "Skinny, düz kesim, dar paça",
         correctAnswer: "Jake",
-        options: ["Jake", "KVNC", "Leo"]
+        options: ["Milan", "Jake", "177"]
     },
     {
         image: "kvnc.webp",
         description: "Skinny, dar paça",
-        correctAnswer: "KVNC",
-        options: ["KVNC", "Leo", "James"]
+        correctAnswer: "KVNÇ",
+        options: ["KVNÇ", "Billie", "Atlanta"]
     },
-    {
-        image: "leo.webp",
-        description: "Süper skinny, süper dar paça",
-        correctAnswer: "Leo",
-        options: ["Leo", "James", "Jake"]
-    },
-
-    // Erkek Denim Fitleri - SLIM STRAIGHT
     {
         image: "marcus.webp",
         description: "Düz kesim, daralan paça",
         correctAnswer: "Marcus",
-        options: ["Marcus", "Pierre", "James"]
+        options: ["Milan", "Carlos", "Marcus"]
     },
-    {
-        image: "pierre.webp",
-        description: "Düz kesim, düz paça",
-        correctAnswer: "Pierre",
-        options: ["Pierre", "Marcus", "Jake"]
-    },
-
-    // Erkek Denim Fitleri - REGULAR STRAIGHT
     {
         image: "hunter.webp",
         description: "Rahat kesim, düz paça",
         correctAnswer: "Hunter",
-        options: ["Hunter", "177", "Martin"]
+        options: ["Dawson", "177", "Hunter"]
     },
     {
         image: "177.webp",
-        description: "Klasik kesim, düz paça (Sadece online)",
+        description: "Klasik kesim, düz paça",
         correctAnswer: "177",
-        options: ["177", "Martin", "Dylan"]
+        options: ["Bern", "177", "KVNÇ"]
     },
     {
         image: "martin.webp",
         description: "Düz rahat kesim, düz paça",
         correctAnswer: "Martin",
-        options: ["Martin", "Dylan", "Hunter"]
+        options: ["Marcus", "Martin", "Lisbon"]
     },
     {
-        image: "dylan.webp",
-        description: "Modern düz kesim, düz paça",
-        correctAnswer: "Dylan",
-        options: ["Dylan", "Martin", "177"]
+        image: "dawson.webp",
+        description: "Düz kesim, düz paça chino",
+        correctAnswer: "Dawson",
+        options: ["Dawson", "Bern", "KVNÇ"]
     },
-
-    // Erkek Denim Fitleri - TAPERED
     {
         image: "milan.webp",
         description: "Tapered fit, dar kesim, daralan paça",
         correctAnswer: "Milan",
-        options: ["Milan", "london.webp", "Lisbon"]
+        options: ["Bern", "Hasan", "Milan"]
     },
     {
         image: "london.webp",
         description: "Tapered fit, düz kesim, daralan paça",
         correctAnswer: "London",
-        options: ["London", "Milan", "Lisbon"]
+        options: ["Toronto", "London", "177"]
     },
-
-    // Erkek Denim Fitleri - LOOSE
     {
         image: "lisbon.webp",
         description: "Loose fit, rahat kesim, düz paça",
         correctAnswer: "Lisbon",
-        options: ["Lisbon", "mitte.webp", "Oxford"]
+        options: ["Lisbon", "Marcus", "Hasan"]
     },
     {
         image: "mitte.webp",
         description: "Loose fit, rahat kesim, geniş paça",
         correctAnswer: "Mitte",
-        options: ["Mitte", "Oxford", "Carlos"]
+        options: ["Billie", "Mitte", "Lisbon"]
     },
     {
         image: "oxford.webp",
         description: "Loose fit, rahat kesim, geniş paça",
         correctAnswer: "Oxford",
-        options: ["Oxford", "Carlos", "Lisbon"]
+        options: ["Hunter", "Carlos", "Oxford"]
     },
     {
         image: "carlos.webp",
-        description: "Loose fit, rahat kesim, geniş paça, kargo",
+        description: "Loose fit, rahat kesim, geniş paça kargo",
         correctAnswer: "Carlos",
-        options: ["Carlos", "Lisbon", "Oxford"]
-    },
-
-    // Erkek Denim Fitleri - BAGGY
-    {
-        image: "bern.webp",
-        description: "Baggy fit, bol kesim, daralan paça",
-        correctAnswer: "Bern",
-        options: ["Bern", "toronto.webp", "Atlanta"]
+        options: ["Carlos", "177", "Martin"]
     },
     {
         image: "toronto.webp",
         description: "Baggy fit, rahat kesim, düz paça",
         correctAnswer: "Toronto",
-        options: ["Toronto", "Atlanta", "Detroit"]
+        options: ["London", "Toronto", "Bern"]
+    },
+    {
+        image: "bern.webp",
+        description: "Baggy fit, bol kesim, daralan paça",
+        correctAnswer: "Bern",
+        options: ["Detroit", "Bern", "Mitte"]
     },
     {
         image: "atlanta.webp",
         description: "Baggy fit, rahat kesim, geniş paça",
         correctAnswer: "Atlanta",
-        options: ["Atlanta", "Austin", "Detroit"]
+        options: ["Atlanta", "Dawson", "KVNÇ"]
     },
     {
         image: "austin.webp",
-        description: "Baggy fit, bol kesim, daralan paça, kargo",
+        description: "Baggy fit, bol kesim, daralan paça kargo",
         correctAnswer: "Austin",
-        options: ["Austin", "Detroit", "Billie"]
+        options: ["James", "Austin", "Bern"]
     },
     {
         image: "detroit.webp",
         description: "Baggy fit, bol kesim, geniş paça",
         correctAnswer: "Detroit",
-        options: ["Detroit", "Billie", "Bern"]
+        options: ["Mitte", "Detroit", "KVNÇ"]
     },
     {
         image: "billie.webp",
         description: "Baggy fit, rahat kesim, daralan paça",
         correctAnswer: "Billie",
-        options: ["Billie", "Detroit", "Austin"]
+        options: ["Billie", "Lisbon", "Toronto"]
     },
-
-    // Erkek Denim Fitleri - COMFORT
     {
         image: "hasan.webp",
         description: "Klasik rahat kesim, büyük beden, düz paça",
         correctAnswer: "Hasan",
-        options: ["Hasan", "Bern", "Detroit"]
+        options: ["Hasan", "Oxford", "Martin"]
     }
 ];
+
 // Oyun Durumu Değişkenleri
 let currentQuestionIndex = 0;
 let score = 0;
 let timer;
 let timeRemaining = TIME_LIMIT;
-let availableQuestions = []; // Karıştırılmış soru dizisi
+let questions = []; // Her turda kullanılacak sorular
 let highScores = { name: "Yok", score: 0 }; // Local Storage'dan yüklenecek
 
 // --- Yardımcı Fonksiyonlar ---
@@ -568,49 +453,60 @@ function loadHighScore() {
     if (storedHighScore) {
         highScores = JSON.parse(storedHighScore);
     }
-    updateHighScoreDisplay();
+    updateHighScoreDisplays(); // Her iki rekor alanını da güncelle
 }
 
 // Local Storage'a rekoru kaydet
 function saveHighScore(name, newScore) {
     highScores = { name: name, score: newScore };
     localStorage.setItem('highScore', JSON.stringify(highScores));
-    updateHighScoreDisplay();
+    updateHighScoreDisplays(); // Her iki rekor alanını da güncelle
 }
 
-// Rekor skorunu göster
-function updateHighScoreDisplay() {
-    highScoreNameDisplay.textContent = highScores.name;
-    highScoreValueDisplay.textContent = highScores.score;
+// Rekor skorlarını göster (başlangıç ve bitiş ekranları için)
+function updateHighScoreDisplays() {
+    highScoreNameStartDisplay.textContent = highScores.name;
+    highScoreValueStartDisplay.textContent = highScores.score;
+    highScoreNameEndDisplay.textContent = highScores.name;
+    highScoreValueEndDisplay.textContent = highScores.score;
 }
 
 // --- Oyun Fonksiyonları ---
 
+function showStartScreen() {
+    startScreen.classList.remove('hidden');
+    gamePlayScreen.classList.add('hidden');
+    gameOverScreen.classList.add('hidden');
+    loadHighScore(); // Başlangıç ekranında rekoru göster
+}
+
 function startGame() {
+    startScreen.classList.add('hidden');
     gameOverScreen.classList.add('hidden'); // Oyun bitti ekranını gizle
+    gamePlayScreen.classList.remove('hidden'); // Oyun ekranını göster
 
     score = 0;
     currentScoreDisplay.textContent = score;
-    feedbackMessage.textContent = ''; // Geri bildirim mesajını temizle
 
     // Soruları karıştır ve oyun için hazırla
-    availableQuestions = shuffleArray([...questions]);
+    shuffleArray(allQuestions); // Tüm soruları karıştır
+    questions = allQuestions.slice(0, 5); // Her oyunda ilk 5 soruyu seç (veya istediğiniz sayıda)
     currentQuestionIndex = 0;
 
     loadQuestion();
-    loadHighScore(); // Oyunu her başlattığında rekoru yeniden yükle
+    updateHighScoreDisplays(); // Oyuna başlarken de rekoru güncelle
 }
 
 function loadQuestion() {
     clearInterval(timer); // Önceki sayacı temizle (önemli)
 
-    if (currentQuestionIndex >= availableQuestions.length) {
+    if (currentQuestionIndex >= questions.length) {
         // Tüm sorular bittiğinde oyunu bitir
         endGame();
         return;
     }
 
-    const question = availableQuestions[currentQuestionIndex];
+    const question = questions[currentQuestionIndex];
 
     // Resim yükle
     questionImage.src = IMAGE_FOLDER + question.image;
@@ -655,8 +551,17 @@ function startTimer() {
 
         if (timeRemaining <= 0) {
             clearInterval(timer);
-            feedbackMessage.textContent = 'Süre bitti!';
-            endGame(); // Süre bitince oyunu sonlandır
+            // feedbackMessage.textContent = 'Süre bitti!'; // Bu satır kaldırıldı
+            // Süre bitince yanlış cevap gibi kabul et ve oyunu bitir
+            // Doğru cevabı göster (isteğe bağlı)
+            optionButtons.forEach(button => {
+                if (button.textContent === questions[currentQuestionIndex].correctAnswer) {
+                    button.classList.add('correct');
+                }
+            });
+            setTimeout(() => {
+                endGame(); // Süre bitince oyunu sonlandır
+            }, 1000);
         }
     }, 1000);
 }
@@ -669,15 +574,15 @@ function checkAnswer(selectedButton, correctAnswer) {
         score++;
         currentScoreDisplay.textContent = score;
         selectedButton.classList.add('correct');
-        feedbackMessage.textContent = 'Doğru!';
+        // feedbackMessage.textContent = 'Doğru!'; // Bu satır kaldırıldı
         setTimeout(() => {
             currentQuestionIndex++;
-            feedbackMessage.textContent = ''; // Mesajı temizle
+            // feedbackMessage.textContent = ''; // Bu satır kaldırıldı
             loadQuestion();
         }, 1000); // 1 saniye sonra yeni soruya geç
     } else {
         selectedButton.classList.add('incorrect');
-        feedbackMessage.textContent = 'Yanlış cevap!';
+        // feedbackMessage.textContent = 'Yanlış cevap!'; // Bu satır kaldırıldı
         // Doğru cevabı göster (isteğe bağlı)
         optionButtons.forEach(button => {
             if (button.textContent === correctAnswer) {
@@ -686,13 +591,14 @@ function checkAnswer(selectedButton, correctAnswer) {
         });
         setTimeout(() => {
             endGame(); // Yanlış cevapta oyunu bitir
-        }, 1000);
+        }, 2000);
     }
 }
 
 function endGame() {
     clearInterval(timer); // Zamanlayıcıyı durdur
-    gameOverScreen.classList.remove('hidden');
+    gamePlayScreen.classList.add('hidden'); // Oyun ekranını gizle
+    gameOverScreen.classList.remove('hidden'); // Oyun bitti ekranını göster
     finalScoreDisplay.textContent = score;
     recordBreakingMessage.innerHTML = ''; // Önceki mesajı temizle
 
@@ -715,13 +621,13 @@ function endGame() {
     } else {
         recordBreakingMessage.innerHTML = `<p>Rekor kırılamadı. Mevcut Rekor: ${highScores.name} - ${highScores.score}</p>`;
     }
+    updateHighScoreDisplays(); // Oyun bittiğinde de rekoru güncelle
 }
 
 // Olay Dinleyicileri
+startButton.addEventListener('click', startGame);
 restartButton.addEventListener('click', startGame);
 
 document.addEventListener('DOMContentLoaded', () => {
-    gameOverScreen.classList.add('hidden'); // Oyun bitti ekranını başlangıçta gizle
-    loadHighScore();
-    startGame(); // Sayfa yüklendiğinde oyunu direkt başlat
+    showStartScreen(); // Sayfa yüklendiğinde başlangıç ekranını göster
 });

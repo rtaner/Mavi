@@ -1,26 +1,23 @@
-/* style.css */
-
-/* 1. Ensure HTML and Body occupy full viewport and prevent global scrollbars */
-html {
-    height: 100%;
-}
-
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%; /* Tam yüksekliği kapla */
-    overflow: hidden; /* Global kaydırma çubuğunu gizle */
+    min-height: 100vh;
     background-color: #f0f2f5;
     margin: 0;
     color: #333;
+    overflow: hidden; /* Dikey ve yatay kaydırmayı tamamen engeller */
+    position: fixed; /* İçeriğin ekranı doldurmasını sağlar */
+    width: 100%; /* Genişliği tam ekran yapar */
+    height: 100%; /* Yüksekliği tam ekran yapar */
+    top: 0;
+    left: 0;
 }
 
 .game-container {
     background-color: #fff;
-    /* Padding'i biraz azaltıyoruz, mobil için daha uygun */
-    padding: 20px; 
+    padding: 30px;
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -28,94 +25,132 @@ body {
     max-width: 600px;
     box-sizing: border-box;
     position: relative;
-    
-    /* Önemli: Dinamik yükseklik ayarı ve içerik kaydırma */
-    display: flex; /* İç elemanları dikeyde hizalamak için flexbox */
-    flex-direction: column; /* İç elemanları sütun halinde sırala */
-    justify-content: space-between; /* İçeriği dikeyde yay */
-    height: calc(100% - 40px); /* Ana kapsayıcıya dinamik yükseklik ver (üst/alt boşluklar dahil) */
-    max-height: calc(100vh - 40px); /* Ekran yüksekliğini geçmemesini sağla */
-    overflow-y: auto; /* İçerik sığmazsa dikeyde kaydır */
-    -webkit-overflow-scrolling: touch; /* iOS'ta daha yumuşak kaydırma */
-
-    /* Scrollbar'ı gizle */
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    max-height: 95vh; /* Ekranın yüksekliğine göre maksimum yükseklik ayarı */
+    overflow-y: auto; /* İçerik taşarsa dikey kaydırmaya izin verir, ancak ana body kaydırmaz */
+    display: flex; /* İçeriklerin dikeyde dağılımı için */
+    flex-direction: column; /* İçerikleri sütun halinde dizer */
+    justify-content: space-between; /* İçerikleri dikeyde eşit boşluk bırakarak yayar */
 }
-
-/* Scrollbar gizleme (WebKit tabanlı tarayıcılar için) */
-.game-container::-webkit-scrollbar {
-    display: none;
-}
-
 
 h1 {
-    color: #4CAF50;
-    margin-bottom: 20px; /* Biraz azaltıldı */
-    font-size: 2em; /* Biraz küçültüldü */
+    color: #34495e; /* Modern, koyu bir renk */
+    margin-bottom: 25px;
+    font-size: 1.8em; /* Daha büyük ve dikkat çekici */
+    font-weight: 700; /* Kalın font */
+    letter-spacing: 1.5px; /* Harf aralığı */
+    text-transform: uppercase; /* Büyük harfler */
+    border-bottom: 3px solid #4CAF50; /* Alt çizgi */
+    padding-bottom: 10px;
+    display: inline-block; /* Çizginin sadece metin altında olmasını sağlar */
+}
+
+/* Başlangıç Ekranı Stilleri */
+.start-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    flex-grow: 1; /* Mevcut alanı doldurmasını sağlar */
+}
+
+.start-screen h2 {
+    color: #007bff;
+    font-size: 2.2em;
+    margin-bottom: 15px;
+}
+
+.start-screen p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    color: #555;
+    max-width: 500px;
+}
+
+#startButton {
+    background-color: #28a745; /* Yeşil ton */
+    color: white;
+    border: none;
+    padding: 18px 45px;
+    border-radius: 30px;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 6px 15px rgba(40, 167, 69, 0.4);
+    margin-bottom: 30px;
+}
+
+#startButton:hover {
+    background-color: #218838;
+    transform: translateY(-3px);
+}
+
+#startButton:active {
+    transform: translateY(0);
 }
 
 .score-display {
-    font-size: 1.2em; /* Biraz küçültüldü */
+    font-size: 1.3em;
     font-weight: bold;
-    margin-bottom: 15px; /* Biraz azaltıldı */
+    margin-bottom: 20px;
     color: #555;
 }
 
 .question-area {
-    margin-bottom: 15px; /* Biraz azaltıldı */
-    flex-grow: 1; /* Mevcut alanı doldurmasını sağla */
+    margin-bottom: 25px;
+    flex-grow: 1; /* Mevcut alanı doldurmasını sağlar */
     display: flex;
     flex-direction: column;
-    justify-content: center; /* İçeriği dikeyde ortala */
+    justify-content: center;
     align-items: center;
 }
 
 #questionImage {
-    max-width: 100%;
-    /* Max yüksekliği viewport yüksekliğinin %35'i olarak ayarla */
-    max-height: 35vh; 
     width: auto; /* Genişliği otomatik ayarla */
-    height: auto; /* Yüksekliği otomatik ayarla */
+    max-width: 90%; /* Kapsayıcının %90'ını kapla */
+    height: auto;
+    max-height: 50vh; /* Ekran yüksekliğinin %50'sini geçme */
     border-radius: 8px;
     border: 1px solid #eee;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    object-fit: contain; /* Resmi kutuya sığdırırken oranlarını koru */
+    object-fit: contain; /* Resmin kutuya sığmasını sağlar, oranlarını korur */
 }
 
+
+/* Yeni eklenen açıklama paragrafı için stil */
 .image-description {
-    font-size: 1em; /* Biraz küçültüldü */
-    color: #081f37;
-    margin-top: 10px; /* Boşluklar biraz azaltıldı */
-    margin-bottom: 10px;
-    font-style: italic;
-    min-height: 1.2em; /* İçerik olmasa bile yer tutar */
-    flex-shrink: 0; /* Küçülmesini engelle, her zaman yer kapla */
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #4CAF50; /* Yeşil renk tonu */
+    background-color: #e6ffe6; /* Açık yeşil arka plan */
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-style: normal; /* İtalik kaldırıldı */
+    min-height: 1.5em;
+    display: flex; /* İçeriği ortalamak için */
+    justify-content: center; /* İçeriği yatayda ortala */
+    align-items: center; /* İçeriği dikeyde ortala */
+    text-align: center; /* Metni ortala */
 }
 
-.feedback-message {
-    font-size: 1em; /* Biraz küçültüldü */
-    font-weight: bold;
-    margin-top: 10px;
-    min-height: 20px;
-    flex-shrink: 0; /* Küçülmesini engelle */
-}
 
 .options-container {
     display: flex;
     flex-direction: column;
-    gap: 10px; /* Boşluklar azaltıldı */
-    margin-top: auto; /* Alt kısma yapışmasını sağla */
-    flex-shrink: 0; /* Butonların küçülmesini engelle */
+    gap: 15px;
+    flex-shrink: 0; /* Küçülmesini engeller */
 }
 
 .option-button {
     background-color: #007bff;
     color: white;
     border: none;
-    padding: 12px 20px; /* Padding azaltıldı */
+    padding: 15px 25px;
     border-radius: 8px;
-    font-size: 1em; /* Biraz küçültüldü */
+    font-size: 1.1em;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.1s ease;
     width: 100%;
@@ -145,129 +180,281 @@ h1 {
     background-color: #dc3545; /* Red */
 }
 
+
+/* Updated Game Over Screen Styles */
 .game-over-screen {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: rgba(255, 255, 255, 0.98);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-radius: 12px;
-    padding: 20px; /* Padding ayarlandı */
+    border-radius: 0;
+    padding: 20px;
     box-sizing: border-box;
     z-index: 10;
+    animation: fadeIn 0.5s ease-out;
+    overflow-y: auto;
 }
 
 .game-over-screen h2 {
-    color: #dc3545;
-    font-size: 2em; /* Küçültüldü */
-    margin-bottom: 10px;
+    color: #e44d26; /* Daha belirgin bir renk */
+    font-size: 2.8em; /* Daha büyük başlık */
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1); /* Hafif gölge */
 }
 
 .game-over-screen p {
-    font-size: 1.2em; /* Küçültüldü */
-    margin-bottom: 15px;
+    font-size: 1.6em; /* Daha büyük metin */
+    margin-bottom: 25px;
+    color: #444;
 }
 
 #recordBreakingMessage {
-    font-size: 1em; /* Küçültüldü */
+    font-size: 1.3em;
     font-weight: bold;
-    color: #4CAF50;
+    color: #28a745; /* Başarı için yeşil */
+    margin-bottom: 20px;
+    text-align: center;
+    width: 100%;
+}
+
+#recordBreakingMessage p {
     margin-bottom: 10px;
+    font-size: 1em; /* İçindeki p etiketleri için normal boyut */
 }
 
 #recordBreakingMessage input {
-    padding: 8px; /* Küçültüldü */
-    margin-top: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 0.9em;
-    width: 90%; /* Genişlik arttırıldı */
-    max-width: 200px; /* Max genişlik azaltıldı */
+    padding: 12px 15px; /* Daha fazla padding */
+    margin-top: 15px;
+    border: 2px solid #007bff; /* Mavi kenarlık */
+    border-radius: 25px; /* Daha yuvarlak köşeler */
+    font-size: 1.1em;
+    width: 80%;
+    max-width: 280px; /* Maksimum genişlik */
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 123, 255, 0.2); /* Hafif gölge */
+    transition: all 0.3s ease;
+}
+
+#recordBreakingMessage input:focus {
+    outline: none;
+    border-color: #0056b3; /* Focus'ta daha koyu mavi */
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.4);
+}
+
+#saveRecordButton {
+    background-color: #28a745; /* Kaydet butonu için yeşil */
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px; /* Yuvarlak köşeler */
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 20px;
+    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+}
+
+#saveRecordButton:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+}
+
+#saveRecordButton:active {
+    transform: translateY(0);
 }
 
 #restartButton {
-    background-color: #6c757d;
+    background-color: #007bff; /* Yeniden oynama butonu için mavi */
     color: white;
     border: none;
-    padding: 10px 20px; /* Küçültüldü */
-    border-radius: 8px;
-    font-size: 1em;
+    padding: 15px 40px; /* Daha büyük buton */
+    border-radius: 30px; /* Daha yuvarlak köşeler */
+    font-size: 1.3em; /* Daha büyük font */
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 15px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 30px; /* Daha fazla boşluk */
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4); /* Daha belirgin gölge */
 }
 
 #restartButton:hover {
-    background-color: #5a6268;
+    background-color: #0056b3;
+    transform: translateY(-3px);
 }
+
+#restartButton:active {
+    transform: translateY(0);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
 
 .hidden {
     display: none !important;
 }
 
+/* Rekor skor gösterimi için genel stil */
 .high-score-display {
-    margin-top: 20px; /* Biraz azaltıldı */
-    padding: 10px; /* Padding azaltıldı */
+    margin-top: 30px;
+    padding: 15px;
     background-color: #e9ecef;
     border-radius: 8px;
-    font-size: 0.9em; /* Küçültüldü */
+    font-size: 1.1em;
+    color: #333; /* Metin rengi */
+    flex-shrink: 0; /* Küçülmesini engeller */
 }
 
 .high-score-display h3 {
-    color: #333;
+    color: #34495e; /* Başlık için daha koyu renk */
     margin-top: 0;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+    font-size: 1.4em;
 }
+
+.high-score-display p {
+    margin: 5px 0; /* Paragraflar arası boşluk */
+}
+
+/* Oyun bitti ekranındaki rekor skor gösterimi */
+.high-score-display.game-over-high-score {
+    margin-top: 30px; /* Diğer içerikten biraz uzaklaştırıldı */
+    position: relative; /* Pozisyonlandırma bağlamı oluşturuldu */
+    width: 80%; /* Genişliği sınırlandırıldı */
+    max-width: 400px; /* Maksimum genişlik */
+}
+
+
+/* Kredi kısmı için yeni stil */
+.credits {
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: #777;
+    text-align: center;
+    border-top: 1px solid #ddd; /* Üst çizgi */
+    padding-top: 15px;
+    flex-shrink: 0; /* Küçülmesini engeller */
+}
+.credits p {
+    margin: 5px 0;
+}
+
 
 /* Progress Bar */
 .progress-bar-container {
     width: 100%;
     background-color: #e0e0e0;
     border-radius: 5px;
-    height: 8px; /* Yükseklik azaltıldı */
-    margin-bottom: 15px; /* Biraz azaltıldı */
+    height: 15px;
+    margin-bottom: 20px;
     overflow: hidden;
-    flex-shrink: 0; /* Küçülmesini engelle */
+    flex-shrink: 0; /* Küçülmesini engeller */
 }
 
 .progress-bar {
     height: 100%;
-    width: 0%;
+    width: 100%; /* Başlangıçta tam dolu */
     background-color: #4CAF50;
     border-radius: 5px;
-    transition: width 0.1s linear;
+    transition: width linear; /* Smooth transition */
 }
 
-/* Küçük ekranlar için özel düzenlemeler (Medya Sorguları) */
-@media (max-width: 480px) {
+/* Küçük ekranlar için medya sorguları */
+@media (max-width: 768px) {
     .game-container {
-        padding: 15px; /* Daha küçük padding */
-        height: calc(100% - 20px); /* Daha az boşluk */
-        max-height: calc(100vh - 20px);
+        width: 100%;
+        height: 100%; /* Mobil cihazlarda tam yüksekliği kullan */
+        max-width: none; /* Maksimum genişlik sınırlamasını kaldır */
+        border-radius: 0; /* Köşeleri yuvarlama */
+        padding: 15px; /* Daha az padding */
+        max-height: none; /* Maksimum yüksekliği kaldır */
     }
 
     h1 {
-        font-size: 1.8em; /* Başlığı daha da küçült */
+        font-size: 1.5em; /* Mobil için başlık boyutunu küçült */
+        margin-bottom: 15px;
     }
 
-    .score-display,
-    .image-description,
-    .feedback-message,
-    .option-button,
-    .high-score-display p {
-        font-size: 0.9em; /* Genel metin boyutlarını küçült */
+    .start-screen h2 {
+        font-size: 1.8em;
+    }
+
+    .start-screen p {
+        font-size: 1em;
+        margin-bottom: 20px;
+    }
+
+    #startButton {
+        padding: 15px 30px;
+        font-size: 1.3em;
+    }
+
+    .score-display {
+        font-size: 1.1em;
+        margin-bottom: 15px;
     }
 
     #questionImage {
-        max-height: 30vh; /* Resmi daha da küçült */
+        max-height: 40vh; /* Mobil için resim yüksekliğini ekran yüksekliğine göre ayarla */
+        max-width: 90%; /* Genişliği de ekran genişliğine göre ayarla */
     }
-    
+
+    .image-description {
+        font-size: 1em;
+        padding: 8px 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
     .option-button {
-        padding: 10px 15px; /* Buton padding'i azaltıldı */
+        padding: 12px 20px;
+        font-size: 1em;
+    }
+
+    .game-over-screen h2 {
+        font-size: 2em;
+    }
+
+    .game-over-screen p {
+        font-size: 1.2em;
+        margin-bottom: 15px;
+    }
+
+    #recordBreakingMessage p {
+        font-size: 0.9em;
+    }
+
+    #recordBreakingMessage input {
+        padding: 10px 12px;
+        font-size: 1em;
+        max-width: 250px;
+    }
+
+    #saveRecordButton {
+        padding: 10px 25px;
+        font-size: 1em;
+    }
+
+    #restartButton {
+        padding: 12px 30px;
+        font-size: 1.1em;
+        margin-top: 20px;
+    }
+
+    .high-score-display {
+        margin-top: 20px;
+        padding: 10px;
+        font-size: 1em;
+    }
+
+    .high-score-display h3 {
+        font-size: 1.2em;
     }
 }
