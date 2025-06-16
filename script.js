@@ -23,7 +23,7 @@ const progressBar = document.getElementById('progressBar');
 const imageDescriptionDisplay = document.getElementById('imageDescription');
 
 // Oyun Ayarları
-const TIME_LIMIT = 8; // Saniye cinsinden yanıt süresi
+const TIME_LIMIT = 10; // Saniye cinsinden yanıt süresi
 const IMAGE_FOLDER = 'img/'; // Resimlerin bulunduğu klasör (örneğin: img/resim1.jpg)
 
 // Oyun Verileri (Örnek resimler ve şıklar)
@@ -490,7 +490,7 @@ function startGame() {
 
     // Soruları karıştır ve oyun için hazırla
     shuffleArray(allQuestions); // Tüm soruları karıştır
-    questions = allQuestions.slice(0, 5); // Her oyunda ilk 5 soruyu seç (veya istediğiniz sayıda)
+    questions = allQuestions.slice(0, 60); // Her oyunda ilk 5 soruyu seç (veya istediğiniz sayıda)
     currentQuestionIndex = 0;
 
     loadQuestion();
