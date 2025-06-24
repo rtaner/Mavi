@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SS25 Denim Kataloğu</title>
+    <link rel="stylesheet" href="ss25style.css">
+</head>
+<body>
+    <header>
+        <h1>SS25 Denim Koleksiyonu</h1>
+        <nav>
+            <div class="main-filters">
+                <button class="filter-button" data-gender="all" data-theme="all">Tümü</button>
+                <button class="filter-button" data-gender="kadın" data-theme="all">Sadece Kadın</button>
+                <button class="filter-button" data-gender="erkek" data-theme="all">Sadece Erkek</button>
+            </div>
+
+            <div class="category-filters" id="kadın-category-filters">
+                </div>
+
+            <div class="category-filters" id="erkek-category-filters">
+                </div>
+            
+            <input type="text" id="search-input" placeholder="Model ara..." class="filter-input">
+        </nav>
+    </header>
+
+    <main>
+        <section id="kadın-denimler" class="denim-section">
+            <h2>Kadın Denim Modelleri</h2>
+            <div id="kadın-denim-listesi">
+                </div>
+        </section>
+
+        <section id="erkek-denimler" class="denim-section">
+            <h2>Erkek Denim Modelleri</h2>
+            <div id="erkek-denim-listesi">
+                </div>
+        </section>
+    </main>
+
+    <div id="lightbox" class="lightbox">
+        <span class="close-button">&times;</span>
+        <img class="lightbox-content" id="lightbox-img">
+        <div id="lightbox-caption"></div>
+    </div>
+
+    <script src="ss25script.js"></script>
+</body>
+</html>

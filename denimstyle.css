@@ -1,0 +1,273 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 0.6em 0;
+    text-align: center;
+    position: sticky; /* Sticky header için */
+    top: 0;
+    z-index: 1000; /* Diğer içeriklerin üzerine çıkması için */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+header h1 {
+    margin-bottom: 6px;
+    font-size: 1.7em;
+}
+
+nav {
+    margin-top: 6px;
+    margin-bottom: 10px; /* Arama kutusu ile arasına boşluk */
+}
+
+.filter-button {
+    background-color: #555;
+    color: #fff;
+    border: none;
+    padding: 4px 9px;
+    margin: 0 2px;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: background-color 0.3s ease;
+    font-size: 0.8em;
+}
+
+.filter-button:hover, .filter-button.active {
+    background-color: #007bff;
+}
+
+.search-container {
+    padding: 5px 0;
+}
+
+#search-input {
+    width: 80%;
+    max-width: 400px;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+main {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 20px auto;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
+.denim-section {
+    margin-bottom: 30px;
+}
+
+.denim-section h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #007bff;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+}
+
+.category-section {
+    margin-bottom: 25px;
+}
+
+.category-section h4 {
+    background-color: #e9e9e9;
+    padding: 8px 15px;
+    margin-bottom: 15px;
+    border-left: 5px solid #007bff;
+    font-size: 1.1em;
+}
+
+.denim-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center; /* Kartları ortala */
+}
+
+.denim-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 15px;
+    text-align: center;
+    background-color: #fff;
+    width: calc(33% - 20px); /* Üçlü sütun düzeni, gap'i hesaba kat */
+    min-width: 250px; /* Minimum kart genişliği */
+    max-width: 350px; /* Maksimum kart genişliği */
+    box-sizing: border-box; /* Padding ve border'ı width'e dahil et */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.denim-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.denim-card img {
+    max-width: 100%;
+    /* YÜKSEKLİK AYARLAMASI BURADA */
+    max-height: 250px; /* Önceki 200px yerine daha yüksek bir maksimum yükseklik */
+    height: auto; /* Oranı koru */
+    object-fit: contain; /* Resmin oranını koruyarak kutuya sığdır */
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+.denim-card h3 {
+    font-size: 1.2em;
+    margin: 10px 0 5px;
+    color: #333;
+}
+
+.denim-card p {
+    font-size: 0.9em;
+    color: #666;
+    line-height: 1.4;
+}
+
+footer {
+    text-align: center;
+    padding: 15px;
+    background-color: #333;
+    color: #fff;
+    margin-top: 30px;
+    font-size: 0.8em;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Responsive Tasarım */
+@media (max-width: 768px) {
+    .denim-card {
+        width: calc(50% - 20px); /* İkili sütun düzeni */
+    }
+}
+
+@media (max-width: 480px) {
+    .denim-card {
+        width: 100%; /* Tekli sütun düzeni */
+        max-width: none;
+    }
+    nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px;
+    }
+    .filter-button {
+        flex-basis: 45%; /* Butonların yan yana sığması için */
+        margin: 2px;
+    }
+}
+
+/* Yazdırma İçin CSS (Metin Seçilebilirliğini Artırmak İçin Basit Hale Getirildi) */
+@media print {
+    body {
+        background-color: #fff;
+        color: #000;
+        margin: 0;
+        padding: 0;
+        font-size: 10pt;
+    }
+
+    header, footer, nav, .search-container {
+        display: none; /* Yazdırmada bu elementleri gizle */
+    }
+
+    main {
+        box-shadow: none;
+        margin: 0;
+        padding: 0;
+        width: auto;
+        max-width: none;
+    }
+
+    h1, h2, h3, h4, p {
+        color: #000 !important;
+        margin: 0.5em 0;
+        padding: 0;
+    }
+
+    .denim-section h2 {
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 5px;
+        margin-top: 15px;
+        font-size: 1.2em;
+        text-align: left;
+        page-break-after: avoid; /* Başlıktan sonra sayfa bölmesini engelle */
+    }
+
+    .category-section {
+        margin-bottom: 10px; /* Kategori bölümleri arası boşluğu azalt */
+        page-break-inside: avoid; /* Kategori bölümünün sayfa ortasında bölünmesini engelle */
+    }
+
+    .category-section h4 {
+        background-color: #f0f0f0;
+        border-left: 3px solid #666;
+        font-size: 1em;
+        margin-top: 10px;
+        margin-bottom: 5px;
+        padding: 3px 5px;
+        page-break-after: avoid; /* Kategori başlığından sonra sayfa bölmesini engelle */
+    }
+
+    /* .denim-grid için flex yerine daha basit bir düzenleme */
+    .denim-grid {
+        display: block; /* Flexbox'ı kaldır, blok elemanlar gibi davran */
+        margin-left: 10mm; /* İçeriden bir miktar boşluk ver */
+        margin-right: 10mm;
+    }
+
+    .denim-card {
+        border: 1px solid #eee;
+        box-shadow: none;
+        border-radius: 0;
+        padding: 5mm;
+        margin-bottom: 5mm; /* Kartlar arası boşluk */
+        text-align: left;
+        width: auto; /* Genişliği otomatik ayarla */
+        page-break-inside: avoid; /* Kartın sayfa ortasında bölünmesini engelle */
+    }
+
+    .denim-card img {
+        max-width: 100%;
+        height: auto;
+        max-height: 40mm; /* Resim yüksekliğini yazdırmada sınırlı tut */
+        object-fit: contain;
+        margin-bottom: 5mm;
+        float: left; /* Resmi sola yasla, metin sağında akacak */
+        margin-right: 5mm; /* Resim ile metin arasına boşluk */
+    }
+
+    .denim-card h3 {
+        font-size: 0.9em;
+        margin: 0 0 2mm;
+    }
+
+    .denim-card p {
+        font-size: 0.8em;
+        line-height: 1.3;
+        margin: 0;
+    }
+
+    .denim-card::after { /* Float temizleme */
+        content: "";
+        display: table;
+        clear: both;
+    }
+}

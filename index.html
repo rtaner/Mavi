@@ -3,20 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Denim Fit Game</title>
+    <title>Mavi Bilgi Yarışması</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="game-container">
-        <h1>Denim Fit Game</h1>
+        <h1>Mavi Bilgi Yarışması</h1>
 
         <div class="start-screen" id="startScreen">
-            <h2>Hoş Geldiniz!</h2>
-            <p>Denim Fit Game'e hoş geldiniz! Bilecik Bozüyük Mağazası tarafından hazırlanan bu oyunda, gördüğünüz denim ürününün özelliklerine göre doğru ismi tahmin etmeniz gerekiyor. Rekoru egale edebilecek misin? İyi eğlenceler!</p>
-            <button id="startButton">Oyuna Başla</button>
+		        <p class="welcome-message">Hoş geldiniz. Bilgilerinizi sınayabilir ya da bilgi bankası bölümünden koleksiyonlar hakkında bilgi edinebilirsiniz. İyi eğlenceler.</p>
+            <h2>Yarışma Kategorileri</h2>
+            <div class="category-buttons">
+                <button id="denimCategoryButton">Denim</button>
+                <button id="shortCategoryButton">Şort</button>
+                <button id="collectionsCategoryButton">Koleksiyonlar</button>
+                <button id="allQuestionsCategoryButton">Tüm Sorular</button>
+            </div>
+            <div class="info-bank-container">
+                <button id="infoBankButton" class="info-bank-button">Bilgi Bankası</button>
+            </div>
             <div class="high-score-display">
                 <h3>Rekor Skor</h3>
                 <p><span id="highScoreNameStart">Yok</span>: <span id="highScoreValueStart">0</span></p>
+            </div>
+            <div class="credits">
+                <p>Hazırlayan: Bilecik Bozüyük Mağazası</p>
+            </div>
+        </div>
+
+        <div class="info-bank-menu hidden" id="infoBankMenu">
+            <h2>Bilgi Bankası</h2>
+            <div class="info-bank-options">
+                <button id="denimCatalogButton">Denim Koleksiyonu</button>
+                <button id="ss25CatalogButton">SS25 Koleksiyonu</button>
+                <button id="backToStartFromInfoBankButton">Geri Dön</button>
             </div>
         </div>
 
@@ -44,17 +64,20 @@
             <p>Toplam Skorunuz: <span id="finalScore">0</span></p>
             <div id="recordBreakingMessage"></div>
             <button id="restartButton">Tekrar Oyna</button>
-            <div class="high-score-display game-over-high-score">
-                <h3>Rekor Skor</h3>
-                <p><span id="highScoreNameEnd">Yok</span>: <span id="highScoreValueEnd">0</span></p>
+            <button id="backToHomeButton">Ana Ekrana Dön</button>
+            <div class="category-high-scores">
+                <h3>Kategori Rekorları</h3>
+                <ul id="categoryHighScoresList">
+                    </ul>
+            </div>
+            <div class="credits">
+                <p>Hazırlayan: Bilecik Bozüyük Mağazası</p>
             </div>
         </div>
-
-        <div class="credits">
-            <p>Hazırlayan: Bilecik Bozüyük Mağazası</p>
-        </div>
     </div>
-
+    <script src="denimQuestions.js"></script>
+    <script src="shortQuestions.js"></script>
+    <script src="collectionsQuestions.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
