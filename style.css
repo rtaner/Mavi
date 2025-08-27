@@ -1,8 +1,4 @@
-/* Mavi Bilgi Yarışması CSS Dosyası
-    Oyunun tüm ekran boyutlarına (mobil ve masaüstü) uyumlu olması için baştan yazılmıştır.
-*/
-
-/* Evrensel Ayarlar: Kutulama modelini ve fontları belirler */
+/* Mavi Bilgi Yarışması CSS Dosyası */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -10,67 +6,56 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0056b3, #43a0e3);
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     width: 100vw;
-    background-color: #f0f2f5;
-    color: #333;
-    overflow: hidden; /* Dikey ve yatay kaydırmayı engeller */
-    /* MODERNLEŞTİRME */
-    background: linear-gradient(135deg, #0056b3, #43a0e3); /* Mavi'nin kurumsal renklerinden esinlenerek arka planı belirginleştir */
-    font-family: 'Montserrat', sans-serif; /* Daha modern bir font seçimi */
+    overflow: hidden;
 }
 
-/* Oyun Kapsayıcısı: İçeriği ortalar ve dinamik boyutlandırır.
-    Ekran boşluklarını en iyi şekilde kullanır.
-*/
 .game-container {
-    background-color: #fff;
-    padding: 2.5vh 3vw; /* Dikey ve yatay boşluğu dinamik ayarlar */
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    text-align: center;
-    width: 90%;
-    max-width: 650px;
-    height: 95vh; /* Ekranın %95'ini kaplar */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* İçeriği dikeyde eşit aralıklarla yayar */
-    overflow-y: auto; /* İçerik taşarsa sadece bu alanda kaydırma çubuğu oluşur */
-    gap: 1.5vh;
-    /* MODERNLEŞTİRME */
-    background: rgba(255, 255, 255, 0.95); /* Yarı saydam beyaz bir kart görünümü */
+    background: rgba(255, 255, 255, 0.95);
+    padding: 4vh 5vw;
     border-radius: 20px;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 90%;
     max-width: 700px;
     height: auto;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 3vh;
     backdrop-filter: blur(5px);
-    color: #333; /* İç yazılar için renk */
+    color: #333;
+}
+
+.hidden {
+    display: none !important;
 }
 
 /* Başlık ve Metin Stilleri */
 h1 {
     color: #007bff;
-    font-size: 3em;
-    font-weight: 700;
-    /* MODERNLEŞTİRME */
     font-size: 3.5em;
     font-weight: 800;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
     margin-bottom: 2vh;
 }
 
-h2 {
+.welcome-message {
+    font-size: 1.4em;
     color: #555;
-    font-size: 2.2em;
-    margin-bottom: 1.5vh;
-    /* MODERNLEŞTİRME */
+    font-weight: 500;
+    margin-bottom: 3vh;
+}
+
+h2 {
     color: #007bff;
     font-size: 2.5em;
     margin-bottom: 2vh;
@@ -79,7 +64,6 @@ h2 {
     padding-bottom: 1vh;
 }
 
-/* Kategori başlığı altına dekoratif bir çizgi ekle */
 h2::after {
     content: '';
     position: absolute;
@@ -88,31 +72,21 @@ h2::after {
     transform: translateX(-50%);
     width: 60px;
     height: 4px;
-    background-color: #ff5722; /* Vurgu rengi */
+    background-color: #ff5722;
     border-radius: 2px;
 }
-
 
 p {
     line-height: 1.6;
     margin-bottom: 1vh;
 }
 
-/* Genel Sınıflar */
-.hidden {
-    display: none !important;
-}
-
-/* Buton Stilleri: Kullanımı kolay ve estetik butonlar */
+/* Buton ve Buton Alanları */
 .category-buttons, .info-bank-options {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5vh;
-    width: 100%;
-    /* MODERNLEŞTİRME */
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2vh;
+    width: 100%;
     margin-top: 2vh;
 }
 
@@ -120,18 +94,11 @@ button {
     background-color: #007bff;
     color: white;
     border: none;
-    padding: 1.5vh 3vw;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1.2em;
-    font-weight: 600;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
-    width: 100%;
-    /* MODERNLEŞTİRME */
     padding: 2vh 3vw;
     border-radius: 10px;
+    cursor: pointer;
     font-size: 1.3em;
+    font-weight: 600;
     transition: all 0.3s ease;
     box-shadow: 0 8px 15px rgba(0, 123, 255, 0.2);
     text-transform: uppercase;
@@ -139,23 +106,11 @@ button {
 
 button:hover {
     background-color: #0056b3;
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.3);
-    /* MODERNLEŞTİRME */
     transform: translateY(-5px) scale(1.02);
     box-shadow: 0 12px 20px rgba(0, 123, 255, 0.3);
 }
 
-button:active {
-    background-color: #004085;
-    transform: translateY(0);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
 .info-bank-button {
-    background-color: #6f42c1;
-    box-shadow: 0 4px 10px rgba(111, 66, 193, 0.2);
-    /* MODERNLEŞTİRME */
     background-color: #ff5722;
     box-shadow: 0 8px 15px rgba(255, 87, 34, 0.2);
     margin-top: 2vh;
@@ -163,8 +118,6 @@ button:active {
 }
 
 .info-bank-button:hover {
-    background-color: #5b369c;
-    /* MODERNLEŞTİRME */
     background-color: #e64a19;
     transform: translateY(-5px) scale(1.02);
     box-shadow: 0 12px 20px rgba(255, 87, 34, 0.3);
@@ -172,26 +125,77 @@ button:active {
 
 .info-bank-options button {
     background-color: #20c997;
-    box-shadow: 0 4px 10px rgba(32, 201, 151, 0.2);
-    /* MODERNLEŞTİRME */
-    background-color: #20c997;
     box-shadow: 0 8px 15px rgba(32, 201, 151, 0.2);
 }
 
 .info-bank-options button:hover {
     background-color: #1aa07f;
-    /* MODERNLEŞTİRME */
-    background-color: #1aa07f;
+}
+
+/* Rekor Skor ve Ek Bilgiler */
+.high-score-display {
+    background: #f0f8ff;
+    padding: 2vh 3vw;
+    border-radius: 10px;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+    margin-top: 3vh;
+}
+
+.high-score-display h3 {
+    color: #007bff;
+    font-size: 1.5em;
+    margin-bottom: 1vh;
+}
+
+.high-score-display p {
+    font-size: 1.3em;
+    color: #333;
+    font-weight: bold;
+}
+
+#highScoreNameStart, #highScoreValueStart {
+    color: #ff5722;
+}
+
+.credits {
+    font-size: 1em;
+    color: #888;
+    margin-top: 4vh;
 }
 
 /* Oyun Oynama Ekranı Elemanları */
 .game-play-screen {
-    flex-grow: 1; /* Ekranın kalan boşluğunu doldurur */
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-around; /* Resim, açıklama ve butonları eşit boşluklarla ayırır */
+    justify-content: space-between; /* Öğeleri dikeyde eşit aralıklarla yayar */
     align-items: center;
+    width: 100%;
     gap: 1vh;
+}
+
+/* Geri Sayım Barı */
+.progress-bar-container {
+    width: 100%;
+    height: 10px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 2vh;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 100%;
+    background-color: #4CAF50;
+    transition: width 0.1s linear;
+}
+
+.score-display {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 1vh;
 }
 
 .question-area {
@@ -199,11 +203,12 @@ button:active {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 2vh;
 }
 
 #questionImage {
     max-width: 90%;
-    max-height: 40vh; /* Resmin yüksekliğini dinamik olarak ayarlar */
+    max-height: 40vh;
     height: auto;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -219,7 +224,6 @@ button:active {
     background-color: #f8f9fa;
     border-radius: 5px;
     border: 1px solid #eee;
-    margin-top: 1vh;
 }
 
 .options-container {
@@ -228,8 +232,8 @@ button:active {
     gap: 1.2vh;
     width: 100%;
     max-width: 400px;
-    flex-grow: 1; /* Olan boşluğu doldurmaya çalışır */
-    justify-content: center; /* Butonları dikeyde ortalar */
+    flex-grow: 1;
+    justify-content: center;
 }
 
 .option-button {
@@ -269,8 +273,7 @@ button:active {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* Ekranın dikeyde dolmasını sağlar ve taşmayı önler */
-    height: 100%; 
+    height: 100%;
     gap: 2vh;
 }
 
@@ -407,20 +410,12 @@ button:active {
 }
 
 .credits {
-    font-size: 0.9em;
-    color: #888;
-    text-align: center;
-    margin-top: auto; /* Alt kısma yapışmasını sağlar */
-    /* MODERNLEŞTİRME */
     font-size: 1em;
     color: #888;
     margin-top: 4vh;
 }
 
-/*
-    Mobil Uyum: Dikey ve yatay boşlukları, fontları ve eleman boyutlarını
-    daha küçük ekranlar için optimize eder.
-*/
+/* Mobil Uyum */
 @media (max-width: 768px) {
     .game-container {
         padding: 2vh;
@@ -460,23 +455,20 @@ button:active {
         font-size: 1.2em;
     }
 
-    /* Oyun sonu ekranı için mobil uyum */
     .game-over-screen {
-        justify-content: flex-start; /* İçeriği yukarıdan başlatır */
-        gap: 1.5vh; /* Boşlukları biraz azaltır */
+        justify-content: flex-start;
+        gap: 1.5vh;
     }
     
     .category-high-scores {
-        margin-top: 1.5vh; /* Boşluğu azaltır */
+        margin-top: 1.5vh;
     }
 
-    /* MODERNLEŞTİRME */
     .category-buttons, .info-bank-options {
         grid-template-columns: 1fr;
     }
 }
 
-/* Küçük Telefonlar İçin Ek Ayarlar */
 @media (max-width: 480px) {
     .game-container {
         padding: 1.5vh;
