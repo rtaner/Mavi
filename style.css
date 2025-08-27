@@ -1,4 +1,8 @@
-/* Evrensel kutu boyutlandırma: padding ve border'ı element boyutuna dahil eder. */
+/* Mavi Bilgi Yarışması CSS Dosyası
+    Oyunun tüm ekran boyutlarına (mobil ve masaüstü) uyumlu olması için baştan yazılmıştır.
+*/
+
+/* Evrensel Ayarlar: Kutulama modelini ve fontları belirler */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -10,108 +14,139 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* Dikey kaydırma çubuğunu kaldırmak için kesin yükseklik ve taşma kontrolü */
-    height: 100vh;
+    min-height: 100vh;
     width: 100vw;
-    overflow: hidden; 
     background-color: #f0f2f5;
     color: #333;
+    overflow: hidden; /* Dikey ve yatay kaydırmayı engeller */
+    /* MODERNLEŞTİRME */
+    background: linear-gradient(135deg, #0056b3, #43a0e3); /* Mavi'nin kurumsal renklerinden esinlenerek arka planı belirginleştir */
+    font-family: 'Montserrat', sans-serif; /* Daha modern bir font seçimi */
 }
 
-/* Oyun kapsayıcısı, dikeyde flexbox ile hizalanıyor */
+/* Oyun Kapsayıcısı: İçeriği ortalar ve dinamik boyutlandırır.
+    Ekran boşluklarını en iyi şekilde kullanır.
+*/
 .game-container {
     background-color: #fff;
-    padding: 20px;
+    padding: 2.5vh 3vw; /* Dikey ve yatay boşluğu dinamik ayarlar */
     border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     text-align: center;
-    width: 95%;
-    max-width: 600px;
-    
-    /* Flexbox kullanarak içeriğin dikeyde düzenlenmesi */
+    width: 90%;
+    max-width: 650px;
+    height: 95vh; /* Ekranın %95'ini kaplar */
     display: flex;
     flex-direction: column;
-    /* İçeriğin ekranı aşmasını engellemek için */
-    max-height: 98vh;
-    /* Eğer içerik yine de taşarsa, sadece bu kutuda kaydırma çubuğu oluşur */
-    overflow-y: auto; 
+    justify-content: space-between; /* İçeriği dikeyde eşit aralıklarla yayar */
+    overflow-y: auto; /* İçerik taşarsa sadece bu alanda kaydırma çubuğu oluşur */
+    gap: 1.5vh;
+    /* MODERNLEŞTİRME */
+    background: rgba(255, 255, 255, 0.95); /* Yarı saydam beyaz bir kart görünümü */
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    max-width: 700px;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+    gap: 3vh;
+    backdrop-filter: blur(5px);
+    color: #333; /* İç yazılar için renk */
 }
 
+/* Başlık ve Metin Stilleri */
 h1 {
     color: #007bff;
-    font-size: 2.5em;
+    font-size: 3em;
     font-weight: 700;
-    margin-bottom: 20px;
+    /* MODERNLEŞTİRME */
+    font-size: 3.5em;
+    font-weight: 800;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2vh;
 }
 
 h2 {
     color: #555;
-    font-size: 2em;
-    margin-bottom: 15px;
+    font-size: 2.2em;
+    margin-bottom: 1.5vh;
+    /* MODERNLEŞTİRME */
+    color: #007bff;
+    font-size: 2.5em;
+    margin-bottom: 2vh;
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 1vh;
 }
+
+/* Kategori başlığı altına dekoratif bir çizgi ekle */
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background-color: #ff5722; /* Vurgu rengi */
+    border-radius: 2px;
+}
+
 
 p {
     line-height: 1.6;
-    margin-bottom: 10px;
+    margin-bottom: 1vh;
 }
 
+/* Genel Sınıflar */
 .hidden {
     display: none !important;
 }
 
-/* Başlangıç Ekranı */
-.start-screen {
+/* Buton Stilleri: Kullanımı kolay ve estetik butonlar */
+.category-buttons, .info-bank-options {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    /* Öğeler arasında boşluk bırakmak için gap kullanıldı */
-    gap: 15px;
-}
-
-.welcome-message {
-    font-size: 1.1em;
-    color: #555;
-    line-height: 1.5;
-    padding: 0 15px;
-}
-
-.start-screen p {
-    font-size: 1.1em;
-    color: #666;
-}
-
-/* Kategori Butonları */
-.category-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+    gap: 1.5vh;
     width: 100%;
-    max-width: 300px;
-    margin: 15px auto 0;
+    /* MODERNLEŞTİRME */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2vh;
+    margin-top: 2vh;
 }
 
-.category-buttons button,
-.info-bank-button {
+button {
     background-color: #007bff;
     color: white;
     border: none;
-    padding: 15px 25px;
+    padding: 1.5vh 3vw;
     border-radius: 8px;
     cursor: pointer;
     font-size: 1.2em;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    width: 100%;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
     box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+    width: 100%;
+    /* MODERNLEŞTİRME */
+    padding: 2vh 3vw;
+    border-radius: 10px;
+    font-size: 1.3em;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 15px rgba(0, 123, 255, 0.2);
+    text-transform: uppercase;
 }
 
-.category-buttons button:hover,
-.info-bank-button:hover {
+button:hover {
     background-color: #0056b3;
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.3);
+    /* MODERNLEŞTİRME */
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 12px 20px rgba(0, 123, 255, 0.3);
 }
 
-.category-buttons button:active,
-.info-bank-button:active {
+button:active {
     background-color: #004085;
     transform: translateY(0);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -120,142 +155,94 @@ p {
 .info-bank-button {
     background-color: #6f42c1;
     box-shadow: 0 4px 10px rgba(111, 66, 193, 0.2);
+    /* MODERNLEŞTİRME */
+    background-color: #ff5722;
+    box-shadow: 0 8px 15px rgba(255, 87, 34, 0.2);
+    margin-top: 2vh;
+    grid-column: span 2;
 }
 
 .info-bank-button:hover {
     background-color: #5b369c;
-}
-
-.info-bank-button:active {
-    background-color: #4b2a82;
-}
-
-.info-bank-menu {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.info-bank-options {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    width: 100%;
-    max-width: 300px;
-    margin: 15px auto 0;
+    /* MODERNLEŞTİRME */
+    background-color: #e64a19;
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 12px 20px rgba(255, 87, 34, 0.3);
 }
 
 .info-bank-options button {
     background-color: #20c997;
-    color: white;
-    border: none;
-    padding: 15px 25px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1.2em;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    width: 100%;
     box-shadow: 0 4px 10px rgba(32, 201, 151, 0.2);
+    /* MODERNLEŞTİRME */
+    background-color: #20c997;
+    box-shadow: 0 8px 15px rgba(32, 201, 151, 0.2);
 }
 
 .info-bank-options button:hover {
     background-color: #1aa07f;
-    transform: translateY(-2px);
+    /* MODERNLEŞTİRME */
+    background-color: #1aa07f;
 }
 
-.info-bank-options button:active {
-    background-color: #158b6e;
-    transform: translateY(0);
-}
-
-/* Oyun Ekranı */
+/* Oyun Oynama Ekranı Elemanları */
 .game-play-screen {
-    width: 100%;
+    flex-grow: 1; /* Ekranın kalan boşluğunu doldurur */
     display: flex;
     flex-direction: column;
+    justify-content: space-around; /* Resim, açıklama ve butonları eşit boşluklarla ayırır */
     align-items: center;
-    gap: 15px;
-}
-
-.progress-bar-container {
-    width: 100%;
-    background-color: #e0e0e0;
-    border-radius: 5px;
-    height: 10px;
-    overflow: hidden;
-}
-
-.progress-bar {
-    background-color: #4CAF50;
-    height: 100%;
-    width: 100%;
-    border-radius: 5px;
-    transition: width 0.1s linear;
-}
-
-.score-display {
-    font-size: 1.3em;
-    font-weight: bold;
-    color: #007bff;
+    gap: 1vh;
 }
 
 .question-area {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
-    gap: 10px;
 }
 
 #questionImage {
-    max-width: 100%;
+    max-width: 90%;
+    max-height: 40vh; /* Resmin yüksekliğini dinamik olarak ayarlar */
     height: auto;
-    /* Resimlerin ekranın dikeyde çok fazla yer kaplamasını engellemek için */
-    max-height: 25vh; 
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     object-fit: contain;
+    transition: max-height 0.3s ease;
 }
 
 .image-description {
-    font-size: 1.1em;
+    font-size: 1em;
     font-style: italic;
     color: #666;
-    padding: 10px 15px;
+    padding: 1vh 1.5vw;
     background-color: #f8f9fa;
     border-radius: 5px;
     border: 1px solid #eee;
+    margin-top: 1vh;
 }
 
 .options-container {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 1.2vh;
     width: 100%;
-    max-width: 350px;
+    max-width: 400px;
+    flex-grow: 1; /* Olan boşluğu doldurmaya çalışır */
+    justify-content: center; /* Butonları dikeyde ortalar */
 }
 
 .option-button {
     background-color: #f0f0f0;
     color: #333;
     border: 1px solid #ddd;
-    padding: 12px 20px;
+    padding: 1.5vh 2.5vw;
     border-radius: 6px;
-    cursor: pointer;
     font-size: 1.1em;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    width: 100%;
 }
 
 .option-button:hover {
     background-color: #e2e6ea;
-    transform: translateY(-2px);
-}
-
-.option-button:active {
-    background-color: #dae0e5;
-    transform: translateY(0);
 }
 
 .option-button.correct {
@@ -275,29 +262,51 @@ p {
     opacity: 0.7;
 }
 
-/* Oyun Bitti Ekranı */
+/* Oyun Sonu Ekranı ve Skorlar */
 .game-over-screen {
-    width: 100%;
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    gap: 15px;
+    /* Ekranın dikeyde dolmasını sağlar ve taşmayı önler */
+    height: 100%; 
+    gap: 2vh;
 }
 
-.game-over-screen h2 {
-    color: #dc3545;
+.final-score-display {
     font-size: 2.5em;
-}
-
-.game-over-screen p {
-    font-size: 1.4em;
-    color: #333;
+    font-weight: bold;
+    color: #007bff;
+    padding: 1.5vh 3vw;
+    background: #eef7ff;
+    border-radius: 10px;
+    margin-bottom: 2vh;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.1);
 }
 
 #recordBreakingMessage {
-    font-size: 1.1em;
-    color: #007bff;
+    font-size: 1.5em;
+    color: #28a745;
     font-weight: bold;
+    animation: bounceIn 0.8s ease-out;
+}
+
+@keyframes bounceIn {
+    0% {
+        transform: scale(0.3);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
 .high-score-form {
@@ -306,10 +315,11 @@ p {
     align-items: center;
     flex-wrap: wrap;
     gap: 10px;
+    margin-top: 2vh;
 }
 
 #playerNameInput {
-    padding: 10px;
+    padding: 1.5vh;
     border: 1px solid #ddd;
     border-radius: 5px;
     width: 100%;
@@ -321,7 +331,7 @@ p {
     background-color: #007bff;
     color: white;
     border: none;
-    padding: 10px 15px;
+    padding: 1.5vh 3vw;
     border-radius: 5px;
     cursor: pointer;
     font-size: 1em;
@@ -332,71 +342,25 @@ p {
     background-color: #0056b3;
 }
 
+.end-game-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5vh;
+    width: 100%;
+    max-width: 350px;
+    margin-top: 2vh;
+}
+
 #restartButton {
     background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-#restartButton:hover {
-    background-color: #0056b3;
-    transform: translateY(-2px);
-}
-
-#restartButton:active {
-    background-color: #004085;
-    transform: translateY(0);
 }
 
 #backToHomeButton {
     background-color: #6c757d;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-#backToHomeButton:hover {
-    background-color: #5a6268;
-    transform: translateY(-2px);
-}
-
-#backToHomeButton:active {
-    background-color: #495057;
-    transform: translateY(0);
-}
-
-.high-score-display {
-    padding: 15px;
-    background-color: #f0f8ff;
-    border: 1px solid #e0f2ff;
-    border-radius: 8px;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
-    color: #333;
-    width: 100%;
-    max-width: 350px;
-}
-
-.high-score-display h3 {
-    color: #007bff;
-    font-size: 1.2em;
-}
-
-.high-score-display span {
-    font-weight: bold;
-    color: #28a745;
 }
 
 .category-high-scores {
-    padding: 15px;
+    padding: 2vh;
     background-color: #e9f7ef;
     border: 2px solid #28a745;
     border-radius: 8px;
@@ -404,24 +368,28 @@ p {
     width: 100%;
     max-width: 350px;
     text-align: left;
+    margin-top: 3vh;
 }
 
 .category-high-scores h3 {
     text-align: center;
     color: #28a745;
+    font-size: 1.8em;
 }
 
 .category-high-scores ul {
     list-style: none;
+    padding: 0;
+    margin-top: 1.5vh;
 }
 
 .category-high-scores li {
-    padding: 8px 0;
+    padding: 1vh 0;
     border-bottom: 1px dashed #cce5d6;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 1em;
+    font-size: 1.1em;
 }
 
 .category-high-scores li:last-child {
@@ -435,24 +403,83 @@ p {
 
 .category-name {
     font-weight: bold;
-    color: #007bff;
+    color: #555;
 }
 
 .credits {
-    font-size: 0.8em;
+    font-size: 0.9em;
     color: #888;
-    margin-top: 20px;
-    width: 100%;
     text-align: center;
+    margin-top: auto; /* Alt kısma yapışmasını sağlar */
+    /* MODERNLEŞTİRME */
+    font-size: 1em;
+    color: #888;
+    margin-top: 4vh;
 }
 
-/* Mobil Cihazlar İçin Medya Sorgusu */
+/*
+    Mobil Uyum: Dikey ve yatay boşlukları, fontları ve eleman boyutlarını
+    daha küçük ekranlar için optimize eder.
+*/
 @media (max-width: 768px) {
     .game-container {
-        padding: 15px;
-        max-width: 98%;
-        max-height: 98vh;
-        gap: 10px; /* Mobil için dikey boşlukları azalttım */
+        padding: 2vh;
+        width: 98%;
+    }
+
+    h1 {
+        font-size: 2.5em;
+    }
+
+    h2 {
+        font-size: 2em;
+    }
+
+    button {
+        padding: 1.2vh 2.5vw;
+        font-size: 1.1em;
+    }
+
+    #questionImage {
+        max-height: 35vh;
+    }
+
+    .image-description {
+        font-size: 0.9em;
+    }
+
+    .options-container {
+        gap: 1vh;
+    }
+
+    .final-score-display {
+        font-size: 2em;
+    }
+
+    #recordBreakingMessage {
+        font-size: 1.2em;
+    }
+
+    /* Oyun sonu ekranı için mobil uyum */
+    .game-over-screen {
+        justify-content: flex-start; /* İçeriği yukarıdan başlatır */
+        gap: 1.5vh; /* Boşlukları biraz azaltır */
+    }
+    
+    .category-high-scores {
+        margin-top: 1.5vh; /* Boşluğu azaltır */
+    }
+
+    /* MODERNLEŞTİRME */
+    .category-buttons, .info-bank-options {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Küçük Telefonlar İçin Ek Ayarlar */
+@media (max-width: 480px) {
+    .game-container {
+        padding: 1.5vh;
     }
 
     h1 {
@@ -462,46 +489,8 @@ p {
     h2 {
         font-size: 1.8em;
     }
-
-    .welcome-message {
-        font-size: 1em;
-    }
-
-    #questionImage {
-        /* Mobil için resmin yüksekliğini daha da düşürdüm */
-        max-height: 18vh;
-    }
-
-    .image-description {
-        font-size: 0.9em;
-    }
-
-    .options-container {
-        gap: 8px;
-    }
-
-    .option-button {
-        font-size: 1em;
-        padding: 10px 15px;
-    }
     
-    .high-score-form {
-        flex-direction: column;
-    }
-
-    #playerNameInput {
-        width: 100%;
-        max-width: 200px;
-    }
-
-    #saveRecordButton {
-        width: 100%;
-        max-width: 200px;
-        margin-left: 0;
-    }
-
-    #restartButton, #backToHomeButton {
-        margin-top: 10px;
-        width: 100%;
+    button {
+        font-size: 1em;
     }
 }
