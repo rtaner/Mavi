@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mavi Bilgi Yarışması</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="game-container">
@@ -15,12 +18,9 @@
             <h2>Yarışma Kategorileri</h2>
             <div class="category-buttons">
                 <button id="denimCategoryButton">Denim</button>
-                <!-- Şort butonu gizlendi. Tekrar görünür yapmak için "hidden" sınıfını silmeniz yeterli. -->
-                <button id="shortCategoryButton" class="hidden">Şort</button>
+                <button id="shortCategoryButton">Şort</button>
                 <button id="collectionsCategoryButton">Koleksiyonlar</button>
                 <button id="allQuestionsCategoryButton">Tüm Sorular</button>
-            </div>
-            <div class="info-bank-container">
                 <button id="infoBankButton" class="info-bank-button">Bilgi Bankası</button>
             </div>
             <div class="high-score-display">
@@ -34,14 +34,10 @@
 
         <div class="info-bank-menu hidden" id="infoBankMenu">
             <h2>Bilgi Bankası</h2>
-            <p>Aşağıdaki kataloglar hakkında bilgi alabilir ve yeni sorulara hazırlanabilirsiniz.</p>
             <div class="info-bank-options">
-                <button id="denimCatalogButton">Denim Kataloğu</button>
-                <button id="ss25CatalogButton">SS25 Kataloğu</button>
-            </div>
-            <button id="backToStartFromInfoBankButton">Ana Ekrana Dön</button>
-            <div class="credits">
-                <p>Hazırlayan: Bilecik Bozüyük Mağazası</p>
+                <button id="denimCatalogButton">Denim Koleksiyonu</button>
+                <button id="ss25CatalogButton">SS25 Koleksiyonu</button>
+                <button id="backToStartFromInfoBankButton">Geri Dön</button>
             </div>
         </div>
 
@@ -55,7 +51,7 @@
             <div class="question-area">
                 <img id="questionImage" src="" alt="Soru Resmi">
                 <p id="imageDescription" class="image-description"></p>
-            </div>
+                </div>
 
             <div class="options-container" id="optionsContainer">
                 <button class="option-button" id="option1"></button>
@@ -68,16 +64,12 @@
             <h2>Oyun Bitti!</h2>
             <p>Toplam Skorunuz: <span id="finalScore">0</span></p>
             <div id="recordBreakingMessage"></div>
-            <div class="high-score-form" id="highScoreForm">
-                <input type="text" id="playerNameInput" placeholder="Adınız">
-                <button id="saveRecordButton">Kaydet</button>
-            </div>
             <button id="restartButton">Tekrar Oyna</button>
             <button id="backToHomeButton">Ana Ekrana Dön</button>
             <div class="category-high-scores">
                 <h3>Kategori Rekorları</h3>
                 <ul id="categoryHighScoresList">
-                </ul>
+                    </ul>
             </div>
             <div class="credits">
                 <p>Hazırlayan: Bilecik Bozüyük Mağazası</p>
