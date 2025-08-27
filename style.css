@@ -1,56 +1,53 @@
+/* Evrensel kutu boyutlandırma: padding ve border'ı element boyutuna dahil eder. */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    /* Dikey kaydırma çubuğunu kaldırmak için kesin yükseklik ve taşma kontrolü */
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden; 
     background-color: #f0f2f5;
-    margin: 0;
     color: #333;
-    /* overflow: hidden; */ /* Artık fixed olmadığı için bu kaldırılabilir veya body'den kaydırmayı engellemek için tutulabilir */
-    /* position: fixed; */ /* Bu kaldırıldı */
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-}
-.welcome-message {
-    font-size: 1.1em;
-    color: #555;
-    margin-bottom: 25px;
-    line-height: 1.5;
-    padding: 0 15px; /* Kenarlardan biraz boşluk bırakmak için */
 }
 
+/* Oyun kapsayıcısı, dikeyde flexbox ile hizalanıyor */
 .game-container {
     background-color: #fff;
-    padding: 30px;
+    padding: 20px;
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     text-align: center;
-    width: 90%;
+    width: 95%;
     max-width: 600px;
-    box-sizing: border-box;
-    position: relative;
-    max-height: 95vh;
-    overflow-y: auto; /* İçerik taşarsa dikey kaydırmaya izin verir */
+    
+    /* Flexbox kullanarak içeriğin dikeyde düzenlenmesi */
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    /* İçeriğin ekranı aşmasını engellemek için */
+    max-height: 98vh;
+    /* Eğer içerik yine de taşarsa, sadece bu kutuda kaydırma çubuğu oluşur */
+    overflow-y: auto; 
 }
 
 h1 {
     color: #007bff;
-    margin-bottom: 25px;
     font-size: 2.5em;
     font-weight: 700;
+    margin-bottom: 20px;
 }
 
 h2 {
     color: #555;
-    margin-bottom: 20px;
     font-size: 2em;
+    margin-bottom: 15px;
 }
 
 p {
@@ -64,32 +61,38 @@ p {
 
 /* Başlangıç Ekranı */
 .start-screen {
-    width: 100%;
-    display: flex; /* İçindeki öğeleri düzenlemek için */
+    display: flex;
     flex-direction: column;
     align-items: center;
+    /* Öğeler arasında boşluk bırakmak için gap kullanıldı */
+    gap: 15px;
+}
+
+.welcome-message {
+    font-size: 1.1em;
+    color: #555;
+    line-height: 1.5;
+    padding: 0 15px;
 }
 
 .start-screen p {
     font-size: 1.1em;
-    margin-bottom: 30px;
     color: #666;
 }
 
-/* Kategori Butonları İçin Stil */
+/* Kategori Butonları */
 .category-buttons {
     display: flex;
     flex-direction: column;
-    gap: 15px; /* Butonlar arası boşluk */
-    margin-top: 30px;
-    width: 100%; /* Kapsayıcı genişliği */
-    max-width: 300px; /* Maksimum genişlik */
-    margin-left: auto;
-    margin-right: auto;
+    gap: 15px;
+    width: 100%;
+    max-width: 300px;
+    margin: 15px auto 0;
 }
 
-.category-buttons button {
-    background-color: #007bff; /* Mavi tonu */
+.category-buttons button,
+.info-bank-button {
+    background-color: #007bff;
     color: white;
     border: none;
     padding: 15px 25px;
@@ -97,52 +100,36 @@ p {
     cursor: pointer;
     font-size: 1.2em;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    width: 100%; /* Buton genişliği */
+    width: 100%;
     box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
 }
 
-.category-buttons button:hover {
-    background-color: #0056b3; /* Koyu mavi */
+.category-buttons button:hover,
+.info-bank-button:hover {
+    background-color: #0056b3;
     transform: translateY(-2px);
 }
 
-.category-buttons button:active {
+.category-buttons button:active,
+.info-bank-button:active {
     background-color: #004085;
     transform: translateY(0);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* Bilgi Bankası Butonu */
-.info-bank-container {
-    margin-top: 20px;
-    width: 100%;
-    max-width: 300px;
-}
-
 .info-bank-button {
-    background-color: #6f42c1; /* Mor tonu */
-    color: white;
-    border: none;
-    padding: 15px 25px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1.2em;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    width: 100%;
+    background-color: #6f42c1;
     box-shadow: 0 4px 10px rgba(111, 66, 193, 0.2);
 }
 
 .info-bank-button:hover {
     background-color: #5b369c;
-    transform: translateY(-2px);
 }
 
 .info-bank-button:active {
     background-color: #4b2a82;
-    transform: translateY(0);
 }
 
-/* Bilgi Bankası Menüsü */
 .info-bank-menu {
     width: 100%;
     display: flex;
@@ -154,15 +141,13 @@ p {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    margin-top: 30px;
     width: 100%;
     max-width: 300px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 15px auto 0;
 }
 
 .info-bank-options button {
-    background-color: #20c997; /* Turkuaz tonu */
+    background-color: #20c997;
     color: white;
     border: none;
     padding: 15px 25px;
@@ -184,10 +169,13 @@ p {
     transform: translateY(0);
 }
 
-
 /* Oyun Ekranı */
 .game-play-screen {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
 }
 
 .progress-bar-container {
@@ -195,43 +183,45 @@ p {
     background-color: #e0e0e0;
     border-radius: 5px;
     height: 10px;
-    margin-bottom: 20px;
-    overflow: hidden; /* İçerik taşmasını engeller */
+    overflow: hidden;
 }
 
 .progress-bar {
-    background-color: #4CAF50; /* Yeşil */
+    background-color: #4CAF50;
     height: 100%;
     width: 100%;
     border-radius: 5px;
-    transition: width 0.1s linear; /* Hızlı geçiş */
+    transition: width 0.1s linear;
 }
 
 .score-display {
     font-size: 1.3em;
     font-weight: bold;
     color: #007bff;
-    margin-bottom: 20px;
 }
 
 .question-area {
-    margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
 }
 
 #questionImage {
     max-width: 100%;
     height: auto;
-    max-height: 300px; /* Resim yüksekliğini sınırla */
+    /* Resimlerin ekranın dikeyde çok fazla yer kaplamasını engellemek için */
+    max-height: 25vh; 
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    object-fit: contain; /* Resmin oranlarını koru */
+    object-fit: contain;
 }
 
 .image-description {
     font-size: 1.1em;
     font-style: italic;
     color: #666;
-    margin-top: 15px;
     padding: 10px 15px;
     background-color: #f8f9fa;
     border-radius: 5px;
@@ -244,7 +234,6 @@ p {
     gap: 12px;
     width: 100%;
     max-width: 350px;
-    margin: 0 auto;
 }
 
 .option-button {
@@ -270,13 +259,13 @@ p {
 }
 
 .option-button.correct {
-    background-color: #28a745; /* Yeşil */
+    background-color: #28a745;
     color: white;
     border-color: #28a745;
 }
 
 .option-button.incorrect {
-    background-color: #dc3545; /* Kırmızı */
+    background-color: #dc3545;
     color: white;
     border-color: #dc3545;
 }
@@ -289,37 +278,41 @@ p {
 /* Oyun Bitti Ekranı */
 .game-over-screen {
     width: 100%;
-    display: flex; /* İçindeki öğeleri düzenlemek için */
+    display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 15px;
 }
 
 .game-over-screen h2 {
     color: #dc3545;
     font-size: 2.5em;
-    margin-bottom: 15px;
 }
 
 .game-over-screen p {
     font-size: 1.4em;
     color: #333;
-    margin-bottom: 20px;
 }
 
 #recordBreakingMessage {
-    margin-top: 20px;
-    margin-bottom: 20px;
     font-size: 1.1em;
     color: #007bff;
     font-weight: bold;
+}
+
+.high-score-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 #playerNameInput {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    margin-top: 10px;
-    width: calc(100% - 22px); /* Padding'i hesaba kat */
+    width: 100%;
     max-width: 250px;
     font-size: 1em;
 }
@@ -332,41 +325,6 @@ p {
     border-radius: 5px;
     cursor: pointer;
     font-size: 1em;
-    margin-left: 10px;
-    transition: background-color 0.3s ease;
-}
-
-#saveRecordButton:hover {
-    background-color: #0056b3;
-}
-
-#recordBreakingMessage {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    font-size: 1.1em;
-    color: #007bff;
-    font-weight: bold;
-}
-
-#playerNameInput {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-top: 10px;
-    width: calc(100% - 22px); /* Padding'i hesaba kat */
-    max-width: 250px;
-    font-size: 1em;
-}
-
-#saveRecordButton {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    margin-left: 10px;
     transition: background-color 0.3s ease;
 }
 
@@ -382,7 +340,6 @@ p {
     border-radius: 8px;
     cursor: pointer;
     font-size: 1em;
-    margin-top: 20px;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
@@ -396,17 +353,14 @@ p {
     transform: translateY(0);
 }
 
-/* Ana Ekrana Dön Butonu */
 #backToHomeButton {
-    background-color: #6c757d; /* Gri tonu */
+    background-color: #6c757d;
     color: white;
     border: none;
     padding: 12px 20px;
     border-radius: 8px;
     cursor: pointer;
     font-size: 1em;
-    margin-top: 15px;
-    margin-left: 10px; /* Restart butonu ile arasına boşluk */
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
@@ -420,67 +374,50 @@ p {
     transform: translateY(0);
 }
 
-
 .high-score-display {
-    margin-top: 25px;
     padding: 15px;
-    background-color: #f0f8ff; /* Açık mavi arka plan */
+    background-color: #f0f8ff;
     border: 1px solid #e0f2ff;
     border-radius: 8px;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
     color: #333;
     width: 100%;
     max-width: 350px;
-    box-sizing: border-box; /* Padding'in genişliğe dahil olmasını sağlar */
 }
 
 .high-score-display h3 {
-    margin-top: 0;
-    margin-bottom: 10px;
     color: #007bff;
     font-size: 1.2em;
 }
 
-.high-score-display p {
-    font-size: 1.1em;
-    margin-bottom: 0;
-    color: #555;
-}
-
 .high-score-display span {
     font-weight: bold;
-    color: #28a745; /* Yeşil */
+    color: #28a745;
 }
 
-/* Oyun Bitti Ekranındaki Rekor Skorlar */
 .category-high-scores {
-    margin-top: 20px;
     padding: 15px;
-    background-color: #e9f7ef; /* Daha açık yeşilimsi ton */
-    border: 2px solid #28a745; /* Yeşil çerçeve */
+    background-color: #e9f7ef;
+    border: 2px solid #28a745;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 123, 255, 0.1);
     width: 100%;
     max-width: 350px;
-    box-sizing: border-box;
-    text-align: left; /* Listeyi sola hizala */
+    text-align: left;
 }
 
 .category-high-scores h3 {
     text-align: center;
-    color: #28a745; /* Yeşil */
-    margin-bottom: 15px;
+    color: #28a745;
 }
 
 .category-high-scores ul {
-    list-style: none; /* Liste işaretini kaldır */
-    padding: 0;
-    margin: 0;
+    list-style: none;
 }
 
 .category-high-scores li {
     padding: 8px 0;
-    border-bottom: 1px dashed #cce5d6; /* Hafif çizgi */
+    border-bottom: 1px dashed #cce5d6;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -488,102 +425,83 @@ p {
 }
 
 .category-high-scores li:last-child {
-    border-bottom: none; /* Son öğede çizgi olmasın */
+    border-bottom: none;
 }
 
-.category-high-scores .score-value {
-    color: #007bff; /* Skor değerini mavi yap */
+.score-value {
+    color: #007bff;
     font-weight: bold;
 }
 
 .category-name {
     font-weight: bold;
-    color: #007bff; /* Kategori adını mavi yap */
+    color: #007bff;
 }
 
-/* Credits Yazısı Konumu */
 .credits {
     font-size: 0.8em;
     color: #888;
-    margin-top: 20px; /* Üstten boşluk bırak */
+    margin-top: 20px;
     width: 100%;
     text-align: center;
 }
 
-/* Responsive Tasarım */
+/* Mobil Cihazlar İçin Medya Sorgusu */
 @media (max-width: 768px) {
     .game-container {
-        padding: 20px;
-        max-width: 95%;
+        padding: 15px;
+        max-width: 98%;
         max-height: 98vh;
+        gap: 10px; /* Mobil için dikey boşlukları azalttım */
     }
 
     h1 {
         font-size: 2em;
-        margin-bottom: 20px;
     }
 
     h2 {
         font-size: 1.8em;
-        margin-bottom: 15px;
     }
 
-    .start-screen p {
+    .welcome-message {
         font-size: 1em;
-        margin-bottom: 20px;
-    }
-
-    .category-buttons button,
-    #restartButton,
-    #backToHomeButton {
-        padding: 12px 20px;
-        font-size: 1.1em;
-    }
-
-    .score-display {
-        font-size: 1.1em;
-        margin-bottom: 15px;
     }
 
     #questionImage {
-        max-height: 40vh; /* Mobil için resim yüksekliğini ekran yüksekliğine göre ayarla */
-        max-width: 90%; /* Genişliği de ekran genişliğine göre ayarla */
+        /* Mobil için resmin yüksekliğini daha da düşürdüm */
+        max-height: 18vh;
     }
 
     .image-description {
-        font-size: 1em;
-        padding: 8px 10px;
-        margin-top: 10px;
-        margin-bottom: 10px;
+        font-size: 0.9em;
+    }
+
+    .options-container {
+        gap: 8px;
     }
 
     .option-button {
-        padding: 12px 20px;
         font-size: 1em;
+        padding: 10px 15px;
     }
-
-    .game-over-screen h2 {
-        font-size: 2em;
-    }
-
-    .game-over-screen p {
-        font-size: 1.2em;
-        margin-bottom: 15px;
+    
+    .high-score-form {
+        flex-direction: column;
     }
 
     #playerNameInput {
-        width: calc(100% - 20px);
-    }
-    #saveRecordButton {
-        margin-left: 0; /* Mobilde hizalama için */
-        margin-top: 10px; /* Üstüne boşluk bırak */
-    }
-    #restartButton, #backToHomeButton {
-        margin-left: 0;
-        margin-top: 10px;
+        width: 100%;
+        max-width: 200px;
     }
 
-    .high-score-display, .category-high-scores {
-        max-width: 90%;
+    #saveRecordButton {
+        width: 100%;
+        max-width: 200px;
+        margin-left: 0;
+    }
+
+    #restartButton, #backToHomeButton {
+        margin-top: 10px;
+        width: 100%;
     }
 }
