@@ -15,7 +15,7 @@
     --text-color-dark: #404040;
     --text-color-light: #6C757D;
     --button-bg-light: #fff;
-    --button-hover-light: #DEE2E6;
+    --button-hover-light: #00E2E6;
     --box-shadow-light: 0 4px 12px rgba(0, 0, 0, 0.08);
     --border-radius-large: 24px;
     --border-radius-small: 8px;
@@ -153,7 +153,7 @@ body {
 /* Bu boyut Kategori Rekorları ekranındaki ikon için ayarlandı */
 .record-section .trophy-icon {
     color: #FFD700;
-    font-size: 1.5rem; /* Boyutu küçültüldü */
+    font-size: 1.5rem;
 }
 
 .record-list {
@@ -223,7 +223,7 @@ body {
     transition: width 0.1s linear;
 }
 .score-display {
-    font-size: 1.5rem;
+    font-size: 0.8rem;
     font-weight: bold;
     color: var(--primary-blue);
     margin-bottom: 1vh;
@@ -254,14 +254,14 @@ body {
     display: block;
 }
 .question-text-container {
-    padding: 20px 25px;
+    padding: 10px 25px;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 .question-text {
-    font-size: 1.2rem;
+    font-size: 0.9rem;
     font-weight: 500;
     color: var(--text-color-dark);
     line-height: 1.6;
@@ -278,7 +278,7 @@ body {
     padding: 15px 20px;
     border: none;
     border-radius: 12px;
-    background-color: var(--button-bg-light);
+    background-color: #F8F9FA;
     color: var(--text-color-dark);
     font-size: 1.1rem;
     font-weight: 500;
@@ -356,7 +356,7 @@ body {
 
 /* Bu boyut, oyun sonu ekranındaki ikon için ayarlandı */
 .trophy-icon {
-    font-size: 3rem; /* Boyutu küçültüldü */
+    font-size: 1.5rem;
     color: #FFD700;
 }
 
