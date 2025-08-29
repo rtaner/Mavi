@@ -39,7 +39,7 @@ body {
     background-color: #FBFAF9;
     width: 100%;
     max-width: 450px;
-    padding: 10px;
+    padding: 2px;
     display: flex;
     flex-direction: column;
     color: var(--text-color-dark);
