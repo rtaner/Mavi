@@ -20,6 +20,7 @@
     --border-radius-large: 24px;
     --border-radius-small: 8px;
     --font-family: 'Montserrat', sans-serif;
+	--vh: 1vh; /* JS ile güncellenecek */
 }
 
 body {
@@ -29,7 +30,9 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    padding: 20px;
+	height: 100%;
+	margin: 0;
+	padding: 0;
 }
 
 .game-container {
@@ -39,8 +42,13 @@ body {
     padding: 30px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
     color: var(--text-color-dark);
+	/* Modern tarayıcılarda güvenilir tam yükseklik */
+	min-height: 100svh;
+	min-height: 100dvh;
+  /* Geriye dönük uyum: JS ile hesaplanan vh */
+	height: calc(var(--vh, 1vh) * 100);
+
 }
 
 .hidden {
@@ -49,7 +57,7 @@ body {
 
 /* Başlık ve Genel Metin Stilleri */
 .app-title {
-    font-size: 2.2rem;
+    font-size: clamp(14px, 3.5vw, 22px);
     font-weight: 800;
     margin-bottom: 5px;
     color: var(--text-color-dark);
@@ -84,7 +92,7 @@ body {
     padding: 15px 20px;
     border: none;
     border-radius: var(--border-radius-large);
-    font-size: 1rem;
+    font-size: clamp(14px, 3.5vw, 22px);
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
@@ -261,7 +269,7 @@ body {
     justify-content: center;
 }
 .question-text {
-    font-size: 0.9rem;
+    font-size: clamp(14px, 3.5vw, 22px);
     font-weight: 500;
     color: var(--text-color-dark);
     line-height: 1.6;
@@ -280,7 +288,7 @@ body {
     border-radius: 12px;
     background-color: #F8F9FA;
     color: var(--text-color-dark);
-    font-size: 1.1rem;
+    font-size: clamp(14px, 3.5vw, 22px);
     font-weight: 500;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
@@ -348,7 +356,7 @@ body {
 }
 
 .game-over-title {
-    font-size: 2.5rem;
+    font-size: clamp(14px, 3.5vw, 22px);
     font-weight: 800;
     color: var(--primary-blue);
     margin: 0;
@@ -370,7 +378,7 @@ body {
 }
 
 .final-score-text {
-    font-size: 2rem;
+    font-size: clamp(14px, 3.5vw, 22px);
     font-weight: 700;
     color: var(--text-color-dark);
     margin: 0;
@@ -383,7 +391,7 @@ body {
 }
 
 #recordBreakingMessage {
-    font-size: 1.1rem;
+    font-size: clamp(14px, 3.5vw, 22px);
     font-weight: 600;
     color: var(--secondary-blue);
     text-align: center;
@@ -426,5 +434,4 @@ body {
 
 #saveRecordButton:hover {
     background-color: var(--secondary-blue);
-
 }

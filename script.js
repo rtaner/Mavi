@@ -52,6 +52,15 @@ let allHighScores = JSON.parse(localStorage.getItem('maviFitGameAllHighScores'))
     "Tüm Sorular": { name: 'Yok', score: 0 }
 };
 
+// Mobil adres çubuğu yüksekliğine karşı çözüm
+function setVhUnit() {
+  document.documentElement.style.setProperty('--vh', (window.innerHeight * 0.01) + 'px');
+}
+setVhUnit();
+window.addEventListener('resize', setVhUnit);
+window.addEventListener('orientationchange', setVhUnit);
+
+
 function updateHighScoreDisplays() {
     // Başlangıç ekranındaki kategori rekorlarını güncelle
     displayCategoryHighScores(categoryHighScoresListStart);
