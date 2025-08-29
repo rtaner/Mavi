@@ -15,7 +15,7 @@
     --text-color-dark: #404040;
     --text-color-light: #6C757D;
     --button-bg-light: #fff;
-    --button-hover-light: #00E2E6;
+    --button-hover-light: #FBFAF9;
     --box-shadow-light: 0 4px 12px rgba(0, 0, 0, 0.08);
     --border-radius-large: 24px;
     --border-radius-small: 8px;
@@ -426,4 +426,5 @@ body {
 
 #saveRecordButton:hover {
     background-color: var(--secondary-blue);
+
 }
