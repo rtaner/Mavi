@@ -1,7 +1,7 @@
 // DOM Elementleri
 const startScreen = document.getElementById('startScreen');
 const gamePlayScreen = document.getElementById('gamePlayScreen');
-const infoBankMenu = document.getElementById('infoBankMenu'); // Yeni eklendi
+const infoBankMenu = document.getElementById('infoBankMenu');
 const questionImage = document.getElementById('questionImage');
 const optionsContainer = document.getElementById('optionsContainer');
 const optionButtons = [
@@ -15,11 +15,10 @@ const finalScoreDisplay = document.getElementById('finalScore');
 const recordBreakingMessage = document.getElementById('recordBreakingMessage');
 const restartButton = document.getElementById('restartButton');
 const backToHomeButton = document.getElementById('backToHomeButton');
-const highScoreNameStartDisplay = document.getElementById('highScoreNameStart');
-const highScoreValueStartDisplay = document.getElementById('highScoreValueStart');
 const progressBar = document.getElementById('progressBar');
 const imageDescriptionDisplay = document.getElementById('imageDescription');
 const categoryHighScoresList = document.getElementById('categoryHighScoresList');
+const categoryHighScoresListStart = document.getElementById('categoryHighScoresListStart'); // Yeni eklendi
 
 // Kategori Butonları
 const denimCategoryButton = document.getElementById('denimCategoryButton');
@@ -27,7 +26,7 @@ const shortCategoryButton = document.getElementById('shortCategoryButton');
 const collectionsCategoryButton = document.getElementById('collectionsCategoryButton');
 const allQuestionsCategoryButton = document.getElementById('allQuestionsCategoryButton');
 
-// Bilgi Bankası Butonları (Yeni Eklendi)
+// Bilgi Bankası Butonları
 const infoBankButton = document.getElementById('infoBankButton');
 const denimCatalogButton = document.getElementById('denimCatalogButton');
 const ss25CatalogButton = document.getElementById('ss25CatalogButton');
@@ -36,17 +35,16 @@ const backToStartFromInfoBankButton = document.getElementById('backToStartFromIn
 // Oyun Ayarları
 const TIME_LIMIT = 8; // Saniye cinsinden yanıt süresi
 const ANSWER_FEEDBACK_DELAY = 2000; // Cevap sonrası bekleme süresi (2 saniye)
-let currentQuestions = []; // Seçilen kategoriye göre güncel soru dizisi
+let currentQuestions = [];
 let currentQuestionIndex = 0;
 let score = 0;
 let timer;
 let progressBarInterval;
 let timeRemaining = TIME_LIMIT;
-let activeCategoryQuestions = []; // Oyuncunun en son seçtiği kategori sorularını tutar
-let activeCategoryName = ''; // En son oynanan kategorinin adını tutar
+let activeCategoryQuestions = [];
+let activeCategoryName = '';
 
 // Rekor Skor Yönetimi
-// Her kategori için ayrı rekorları tutacak obje
 let allHighScores = JSON.parse(localStorage.getItem('maviFitGameAllHighScores')) || {
     "Denim": { name: 'Yok', score: 0 },
     "Şort": { name: 'Yok', score: 0 },
@@ -55,9 +53,8 @@ let allHighScores = JSON.parse(localStorage.getItem('maviFitGameAllHighScores'))
 };
 
 function updateHighScoreDisplays() {
-    // Genel rekoru (tüm sorular kategorisinin rekoru) başlangıç ekranında göster
-    highScoreNameStartDisplay.textContent = allHighScores["Tüm Sorular"].name;
-    highScoreValueStartDisplay.textContent = allHighScores["Tüm Sorular"].score;
+    // Başlangıç ekranındaki kategori rekorlarını güncelle
+    displayCategoryHighScores(categoryHighScoresListStart);
 }
 
 function saveHighScoreForCategory(category, name, newScore) {
@@ -65,7 +62,7 @@ function saveHighScoreForCategory(category, name, newScore) {
         allHighScores[category] = { name, score: newScore };
         localStorage.setItem('maviFitGameAllHighScores', JSON.stringify(allHighScores));
     }
-    updateHighScoreDisplays(); // Ana ekran rekorunu güncelle
+    updateHighScoreDisplays();
 }
 
 function shuffleArray(array) {
@@ -79,9 +76,9 @@ function shuffleArray(array) {
 function startTimer() {
     timeRemaining = TIME_LIMIT;
     progressBar.style.width = '100%';
-    progressBar.style.backgroundColor = '#4CAF50'; // Yeşil
-    clearInterval(progressBarInterval); // Önceki interval'ı temizle
-    clearTimeout(timer); // Önceki timer'ı temizle (setTimeout için clearTimeout kullanılır)
+    progressBar.style.backgroundColor = '#4CAF50';
+    clearInterval(progressBarInterval);
+    clearTimeout(timer);
 
     progressBarInterval = setInterval(() => {
         timeRemaining -= 0.1;
@@ -89,22 +86,22 @@ function startTimer() {
         progressBar.style.width = `${progressPercentage}%`;
 
         if (timeRemaining <= TIME_LIMIT / 2 && timeRemaining > TIME_LIMIT / 4) {
-            progressBar.style.backgroundColor = '#FFC107'; // Sarı
+            progressBar.style.backgroundColor = '#FFC107';
         } else if (timeRemaining <= TIME_LIMIT / 4) {
-            progressBar.style.backgroundColor = '#F44336'; // Kırmızı
+            progressBar.style.backgroundColor = '#F44336';
         }
 
         if (timeRemaining <= 0) {
             clearInterval(progressBarInterval);
-            clearTimeout(timer); // Süre bittiğinde zamanlayıcıyı da temizle
-            checkAnswer(null); // Süre bittiğinde otomatik yanlış say
+            clearTimeout(timer);
+            checkAnswer(null);
         }
-    }, 100); // Her 100ms'de bir güncelle
+    }, 100);
 }
 
 function displayQuestion() {
     if (currentQuestionIndex >= currentQuestions.length) {
-        endGame(); // Tüm sorular bittiğinde oyunu bitir
+        endGame();
         return;
     }
 
@@ -117,61 +114,63 @@ function displayQuestion() {
     optionButtons.forEach((button, index) => {
         button.textContent = shuffledOptions[index];
         button.onclick = () => checkAnswer(button.textContent);
-        button.classList.remove('correct', 'incorrect'); // Önceki durumları temizle
-        button.disabled = false; // Butonları aktif et
+        button.classList.remove('correct', 'incorrect');
+        button.disabled = false;
+        button.innerHTML = `<span>${shuffledOptions[index]}</span>`; // Metni span içine al
     });
 
     startTimer();
 }
 
 function checkAnswer(selectedAnswer) {
-    clearInterval(progressBarInterval); // ProgressBar interval'ını durdur
-    clearTimeout(timer); // Zamanlayıcıyı durdur
+    clearInterval(progressBarInterval);
+    clearTimeout(timer);
 
     const question = currentQuestions[currentQuestionIndex];
     const isCorrect = (selectedAnswer === question.correctAnswer);
 
     optionButtons.forEach(button => {
-        button.disabled = true; // Tüm butonları pasif yap
-        if (button.textContent === question.correctAnswer) {
+        button.disabled = true;
+        if (button.textContent.includes(question.correctAnswer)) { // İçerik kontrolü
             button.classList.add('correct');
-        } else if (button.textContent === selectedAnswer) {
+            // İkon ekle
+            button.innerHTML = `<i class="fas fa-check-circle icon-left"></i><span>${question.correctAnswer}</span>`;
+        } else if (button.textContent.includes(selectedAnswer) && !isCorrect) { // Yanlış cevabı işaretle
             button.classList.add('incorrect');
+            button.innerHTML = `<i class="fas fa-times-circle icon-left"></i><span>${selectedAnswer}</span>`;
         }
     });
 
     if (isCorrect) {
         score++;
         currentScoreDisplay.textContent = score;
-        // Doğru cevap ise bir sonraki soruya geç veya oyunu bitir
         setTimeout(() => {
             currentQuestionIndex++;
             if (currentQuestionIndex < currentQuestions.length) {
-                displayQuestion(); // Daha fazla soru varsa bir sonraki soruyu göster
+                displayQuestion();
             } else {
-                endGame(); // Tüm sorular bittiğinde oyunu bitir
+                endGame();
             }
-        }, ANSWER_FEEDBACK_DELAY); // Cevap sonrası bekleme süresi
+        }, ANSWER_FEEDBACK_DELAY);
     } else {
-        // Yanlış cevap ise oyunu doğrudan bitir
-        setTimeout(() => { // Kullanıcının cevabı görmesi için kısa bir gecikme
+        setTimeout(() => {
             endGame();
-        }, ANSWER_FEEDBACK_DELAY); // Cevap sonrası bekleme süresi
+        }, ANSWER_FEEDBACK_DELAY);
     }
 }
 
 function startGame(categoryQuestions, categoryName) {
-    activeCategoryQuestions = categoryQuestions; // Seçilen kategori sorularını kaydet
-    activeCategoryName = categoryName; // Kategorinin adını kaydet
-    currentQuestions = shuffleArray([...activeCategoryQuestions]); // Her oyuna başlarken soruları karıştır
+    activeCategoryQuestions = categoryQuestions;
+    activeCategoryName = categoryName;
+    currentQuestions = shuffleArray([...activeCategoryQuestions]);
     currentQuestionIndex = 0;
     score = 0;
     currentScoreDisplay.textContent = score;
 
     startScreen.classList.add('hidden');
     gamePlayScreen.classList.remove('hidden');
-    gameOverScreen.classList.add('hidden'); // Oyun bitti ekranının gizli olduğundan emin ol
-    infoBankMenu.classList.add('hidden'); // Bilgi bankası menüsünü gizle
+    gameOverScreen.classList.add('hidden');
+    infoBankMenu.classList.add('hidden');
 
     displayQuestion();
 }
@@ -180,49 +179,50 @@ function endGame() {
     gamePlayScreen.classList.add('hidden');
     gameOverScreen.classList.remove('hidden');
     finalScoreDisplay.textContent = score;
-    recordBreakingMessage.innerHTML = ''; // Önceki mesajı temizle
+    recordBreakingMessage.innerHTML = '';
 
-    // Mevcut kategori için rekor kırıldı mı kontrolü
     if (score > allHighScores[activeCategoryName].score) {
         recordBreakingMessage.innerHTML = `
-            <p>Tebrikler! <span class="category-name">${activeCategoryName}</span> kategorisinde yeni bir rekor kırdınız!</p>
-            <p>Adınızı girin:</p>
-            <input type="text" id="playerNameInput" placeholder="Adınız" maxlength="20">
-            <button id="saveRecordButton">Rekoru Kaydet</button>
+            <p>Tebrikler! Yeni bir rekor kırdınız!</p>
+            <div class="name-input-section">
+                <input type="text" id="playerNameInput" class="player-name-input" placeholder="İsminizi yazınız..." maxlength="20">
+                <button id="saveRecordButton" class="save-record-button accent-button">Rekoru Kaydet</button>
+            </div>
         `;
         document.getElementById('saveRecordButton').onclick = () => {
             const playerName = document.getElementById('playerNameInput').value.trim();
             if (playerName) {
                 saveHighScoreForCategory(activeCategoryName, playerName, score);
                 recordBreakingMessage.innerHTML = `<p>Rekorunuz kaydedildi: ${playerName} - ${score}</p>`;
-                displayCategoryHighScores(); // Rekor kaydedildikten sonra listeyi güncelle
+                displayCategoryHighScores(categoryHighScoresList);
             } else {
                 alert("Lütfen adınızı girin!");
             }
         };
     } else {
-        recordBreakingMessage.innerHTML = `<p><span class="category-name">${activeCategoryName}</span> kategorisi için rekor kırılamadı. Mevcut Rekor: ${allHighScores[activeCategoryName].name} - ${allHighScores[activeCategoryName].score}</p>`;
+        recordBreakingMessage.innerHTML = `
+            <p class="record-info-message">
+                ${activeCategoryName} kategorisi için rekor kırılamadı. Mevcut rekor: 
+                <span class="current-record">${allHighScores[activeCategoryName].name} - ${allHighScores[activeCategoryName].score}</span>
+            </p>
+        `;
     }
-    displayCategoryHighScores(); // Oyun bittiğinde kategori rekorlarını göster
+    displayCategoryHighScores(categoryHighScoresList);
 }
 
-function displayCategoryHighScores() {
-    categoryHighScoresList.innerHTML = ''; // Listeyi temizle
-    // Kategorileri belirli bir sıralamada göstermek için
+function displayCategoryHighScores(listElement) {
+    listElement.innerHTML = '';
     const categories = ["Denim", "Şort", "Koleksiyonlar", "Tüm Sorular"]; 
 
     categories.forEach(category => {
         const highScore = allHighScores[category];
         const listItem = document.createElement('li');
-        // İsim ve skor için ayrı span'ler kullan
+        listItem.classList.add('record-item');
         listItem.innerHTML = `
-            <span class="category-name-display">${category}:</span>
-            <span class="player-info">
-                <span class="player-name">${highScore.name}</span> - 
-                <span class="score-value">${highScore.score}</span>
-            </span>
+            <span class="record-category">${category}</span>
+            <span class="record-score">${highScore.name} - ${highScore.score}</span>
         `;
-        categoryHighScoresList.appendChild(listItem);
+        listElement.appendChild(listItem);
     });
 }
 
@@ -230,9 +230,8 @@ function showStartScreen() {
     startScreen.classList.remove('hidden');
     gamePlayScreen.classList.add('hidden');
     gameOverScreen.classList.add('hidden');
-    infoBankMenu.classList.add('hidden'); // Bilgi bankası menüsünü gizle
-    updateHighScoreDisplays(); // Başlangıç ekranındaki genel rekoru güncelle
-    // Oyun bitti ekranında olası input ve butonları temizle
+    infoBankMenu.classList.add('hidden');
+    updateHighScoreDisplays();
     recordBreakingMessage.innerHTML = '';
 }
 
@@ -252,15 +251,13 @@ allQuestionsCategoryButton.addEventListener('click', () => {
     startGame(allCombinedQuestions, "Tüm Sorular");
 });
 
-// Bilgi Bankası Olay Dinleyicileri (Yeni Eklendi)
 infoBankButton.addEventListener('click', showInfoBankMenu);
 denimCatalogButton.addEventListener('click', () => window.open('denim.html', '_blank'));
 ss25CatalogButton.addEventListener('click', () => window.open('ss25.html', '_blank'));
 backToStartFromInfoBankButton.addEventListener('click', showStartScreen);
 
 restartButton.addEventListener('click', () => {
-    // Restart butonu basıldığında en son seçilen kategori ile yeniden başlat
-    if (activeCategoryQuestions.length === 0) { // Bu durum, sayfa yeniden yüklendiğinde restart'a basılırsa olabilir.
+    if (activeCategoryQuestions.length === 0) {
         const allCombinedQuestions = [...denimQuestions, ...shortQuestions, ...collectionsQuestions];
         startGame(allCombinedQuestions, "Tüm Sorular");
     } else {
@@ -271,6 +268,6 @@ restartButton.addEventListener('click', () => {
 backToHomeButton.addEventListener('click', showStartScreen);
 
 document.addEventListener('DOMContentLoaded', () => {
-    updateHighScoreDisplays(); // Sayfa yüklendiğinde başlangıç ekranındaki genel rekoru göster
-    showStartScreen(); // Sayfa yüklendiğinde başlangıç ekranını göster
+    updateHighScoreDisplays();
+    showStartScreen();
 });

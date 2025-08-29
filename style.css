@@ -1,180 +1,213 @@
-/* Mavi Bilgi Yarışması CSS Dosyası */
+/* Ana CSS Dosyası */
+
+/* Evrensel Ayarlar */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+:root {
+    --primary-blue: #0A66C2;
+    --secondary-blue: #1A73E8;
+    --light-bg-color: #FBFAF9;
+    --dark-bg-color: #333;
+    --text-color-dark: #404040;
+    --text-color-light: #6C757D;
+    --button-bg-light: #fff;
+    --button-hover-light: #DEE2E6;
+    --box-shadow-light: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --border-radius-large: 24px;
+    --border-radius-small: 8px;
+    --font-family: 'Montserrat', sans-serif;
+}
+
 body {
-    background: linear-gradient(135deg, #0056b3, #43a0e3);
-    color: #fff;
-    font-family: 'Montserrat', sans-serif;
+    background-color: var(--light-bg-color);
+    font-family: var(--font-family);
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    width: 100vw;
-    overflow: hidden;
+    padding: 20px;
 }
 
 .game-container {
-    background: rgba(255, 255, 255, 0.95);
-    padding: 4vh 5vw;
-    border-radius: 20px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    width: 90%;
-    max-width: 700px;
-    height: auto;
+    background-color: #FBFAF9;
+    width: 100%;
+    max-width: 450px;
+    padding: 30px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 3vh;
-    backdrop-filter: blur(5px);
-    color: #333;
+    gap: 20px;
+    color: var(--text-color-dark);
 }
 
 .hidden {
     display: none !important;
 }
 
-/* Başlık ve Metin Stilleri */
-h1 {
-    color: #007bff;
-    font-size: 3.5em;
+/* Başlık ve Genel Metin Stilleri */
+.app-title {
+    font-size: 2.2rem;
     font-weight: 800;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 2vh;
+    margin-bottom: 5px;
+    color: var(--text-color-dark);
 }
 
-.welcome-message {
-    font-size: 1.4em;
-    color: #555;
-    font-weight: 500;
-    margin-bottom: 3vh;
+.app-title .blue-text {
+    color: var(--primary-blue);
 }
 
-h2 {
-    color: #007bff;
-    font-size: 2.5em;
-    margin-bottom: 2vh;
+.app-description, .footer {
+    font-size: 0.9rem;
+    color: var(--text-color-light);
+    line-height: 1.5;
+}
+
+.success-message {
+    font-size: 1.5rem;
     font-weight: 700;
-    position: relative;
-    padding-bottom: 1vh;
+    color: var(--secondary-blue);
+    margin-top: 15px;
 }
 
-h2::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 4px;
-    background-color: #ff5722;
-    border-radius: 2px;
+/* Buton Stilleri */
+.category-buttons, .info-bank-options, .action-buttons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
-p {
-    line-height: 1.6;
-    margin-bottom: 1vh;
-}
-
-/* Buton ve Buton Alanları */
-.category-buttons, .info-bank-options {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2vh;
+.category-button, .info-bank-button, .action-button {
     width: 100%;
-    margin-top: 2vh;
-}
-
-button {
-    background-color: #007bff;
-    color: white;
+    padding: 15px 20px;
     border: none;
-    padding: 2vh 3vw;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 1.3em;
+    border-radius: var(--border-radius-large);
+    font-size: 1rem;
     font-weight: 600;
-    transition: all 0.3s ease;
-    box-shadow: 0 8px 15px rgba(0, 123, 255, 0.2);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
     text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 0.5px;
 }
 
-button:hover {
-    background-color: #0056b3;
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 12px 20px rgba(0, 123, 255, 0.3);
+.category-button, .info-bank-button {
+    background-color: var(--button-bg-light);
+    color: #5C5C5C;
 }
 
-.info-bank-button {
-    background-color: #ff5722;
-    box-shadow: 0 8px 15px rgba(255, 87, 34, 0.2);
-    margin-top: 2vh;
-    grid-column: span 2;
+.category-button:hover, .info-bank-button:hover {
+    background-color: var(--button-hover-light);
+    transform: translateY(-2px);
 }
 
-.info-bank-button:hover {
-    background-color: #e64a19;
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 12px 20px rgba(255, 87, 34, 0.3);
+.accent-button {
+    background-color: var(--primary-blue);
+    color: #fff;
 }
 
-.info-bank-options button {
-    background-color: #20c997;
-    box-shadow: 0 8px 15px rgba(32, 201, 151, 0.2);
+.accent-button:hover {
+    background-color: var(--secondary-blue);
 }
 
-.info-bank-options button:hover {
-    background-color: #1aa07f;
+.action-button {
+    background-color: var(--primary-blue);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
-/* Rekor Skor ve Ek Bilgiler */
-.high-score-display {
-    background: #f0f8ff;
-    padding: 2vh 3vw;
-    border-radius: 10px;
-    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
-    margin-top: 3vh;
+.action-button:hover {
+    background-color: var(--secondary-blue);
+    transform: translateY(-2px);
 }
 
-.high-score-display h3 {
-    color: #007bff;
-    font-size: 1.5em;
-    margin-bottom: 1vh;
+/* Rekor Bölümü */
+.record-section {
+    background-color: var(--light-bg-color);
+    border-radius: var(--border-radius-large);
+    padding: 20px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    margin-top: 20px;
 }
 
-.high-score-display p {
-    font-size: 1.3em;
-    color: #333;
-    font-weight: bold;
+.record-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-weight: 600;
+    margin-bottom: 15px;
 }
 
-#highScoreNameStart, #highScoreValueStart {
-    color: #ff5722;
+.checkmark-icon {
+    color: var(--primary-blue);
+    font-size: 1.2rem;
 }
 
-.credits {
-    font-size: 1em;
-    color: #888;
-    margin-top: 4vh;
+/* Taç İkonu Stili */
+/* Bu boyut Kategori Rekorları ekranındaki ikon için ayarlandı */
+.record-section .trophy-icon {
+    color: #FFD700;
+    font-size: 1.5rem; /* Boyutu küçültüldü */
 }
 
-/* Oyun Oynama Ekranı Elemanları */
+.record-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.record-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: #fff;
+    border-radius: var(--border-radius-small);
+    font-size: 0.9rem;
+    font-weight: 500;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.record-item .record-category {
+    font-weight: 700;
+    color: var(--primary-blue);
+}
+
+.record-item .record-score {
+    color: var(--text-color-dark);
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #aaa;
+}
+
+.footer-highlight {
+    font-weight: 700;
+    color: var(--text-color-dark);
+}
+
+/* Oyun Oynama Ekranı (Mevcut) */
 .game-play-screen {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Öğeleri dikeyde eşit aralıklarla yayar */
+    justify-content: space-between;
     align-items: center;
     width: 100%;
-    gap: 1vh;
+    height: 100%;
 }
-
-/* Geri Sayım Barı */
 .progress-bar-container {
     width: 100%;
     height: 10px;
@@ -183,90 +216,108 @@ button:hover {
     overflow: hidden;
     margin-bottom: 2vh;
 }
-
 .progress-bar {
     height: 100%;
     width: 100%;
     background-color: #4CAF50;
     transition: width 0.1s linear;
 }
-
 .score-display {
-    font-size: 1.5em;
+    font-size: 1.5rem;
     font-weight: bold;
-    color: #007bff;
+    color: var(--primary-blue);
     margin-bottom: 1vh;
 }
-
-.question-area {
+.question-card {
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     width: 100%;
+    height: 100%;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 2vh;
 }
-
-#questionImage {
-    max-width: 90%;
-    max-height: 40vh;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    object-fit: contain;
-    transition: max-height 0.3s ease;
-}
-
-.image-description {
-    font-size: 1em;
-    font-style: italic;
-    color: #666;
-    padding: 1vh 1.5vw;
-    background-color: #f8f9fa;
-    border-radius: 5px;
-    border: 1px solid #eee;
-}
-
-.options-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1.2vh;
+.question-image-container {
     width: 100%;
-    max-width: 400px;
+    height: 50%;
+    overflow: hidden;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    position: relative;
+    background-color: #f7cacd;
+}
+.question-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.question-text-container {
+    padding: 20px 25px;
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
 }
-
-.option-button {
-    background-color: #f0f0f0;
-    color: #333;
-    border: 1px solid #ddd;
-    padding: 1.5vh 2.5vw;
-    border-radius: 6px;
-    font-size: 1.1em;
+.question-text {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--text-color-dark);
+    line-height: 1.6;
+    margin: 0;
 }
-
-.option-button:hover {
-    background-color: #e2e6ea;
+.answer-options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 0 25px 20px;
 }
-
-.option-button.correct {
-    background-color: #28a745;
-    color: white;
-    border-color: #28a745;
+.answer-button {
+    width: 100%;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 12px;
+    background-color: var(--button-bg-light);
+    color: var(--text-color-dark);
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    text-align: left;
 }
-
-.option-button.incorrect {
-    background-color: #dc3545;
-    color: white;
-    border-color: #dc3545;
+.answer-button:hover:not(.correct):not(.incorrect) {
+    background-color: #e5e5e5;
+    transform: translateY(-2px);
 }
-
-.option-button:disabled {
+.answer-button:disabled {
     cursor: not-allowed;
     opacity: 0.7;
 }
 
-/* Oyun Sonu Ekranı ve Skorlar */
+/* Doğru/Yanlış Cevap Stilleri */
+.answer-button.correct {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #28a745;
+}
+.answer-button.correct .icon-left {
+    color: #28a745;
+}
+.answer-button.incorrect {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #dc3545;
+}
+.answer-button.incorrect .icon-left {
+    color: #dc3545;
+}
+
+/* Oyun Sonu Ekranı */
 .game-over-screen {
     flex-grow: 1;
     display: flex;
@@ -274,215 +325,105 @@ button:hover {
     justify-content: center;
     align-items: center;
     height: 100%;
-    gap: 2vh;
+    gap: 20px;
 }
 
-.final-score-display {
-    font-size: 2.5em;
-    font-weight: bold;
-    color: #007bff;
-    padding: 1.5vh 3vw;
-    background: #eef7ff;
-    border-radius: 10px;
-    margin-bottom: 2vh;
-    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.1);
-}
-
-#recordBreakingMessage {
-    font-size: 1.5em;
-    color: #28a745;
-    font-weight: bold;
-    animation: bounceIn 0.8s ease-out;
-}
-
-@keyframes bounceIn {
-    0% {
-        transform: scale(0.3);
-        opacity: 0;
-    }
-    50% {
-        transform: scale(1.1);
-        opacity: 1;
-    }
-    70% {
-        transform: scale(0.9);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-.high-score-form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 2vh;
-}
-
-#playerNameInput {
-    padding: 1.5vh;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+.quiz-end-section {
     width: 100%;
-    max-width: 250px;
-    font-size: 1em;
-}
-
-#saveRecordButton {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 1.5vh 3vw;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.3s ease;
-}
-
-#saveRecordButton:hover {
-    background-color: #0056b3;
-}
-
-.end-game-buttons {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: var(--border-radius-large);
+    box-shadow: var(--box-shadow-light);
     display: flex;
     flex-direction: column;
-    gap: 1.5vh;
-    width: 100%;
-    max-width: 350px;
-    margin-top: 2vh;
-}
-
-#restartButton {
-    background-color: #007bff;
-}
-
-#backToHomeButton {
-    background-color: #6c757d;
-}
-
-.category-high-scores {
-    padding: 2vh;
-    background-color: #e9f7ef;
-    border: 2px solid #28a745;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 123, 255, 0.1);
-    width: 100%;
-    max-width: 350px;
-    text-align: left;
-    margin-top: 3vh;
-}
-
-.category-high-scores h3 {
-    text-align: center;
-    color: #28a745;
-    font-size: 1.8em;
-}
-
-.category-high-scores ul {
-    list-style: none;
-    padding: 0;
-    margin-top: 1.5vh;
-}
-
-.category-high-scores li {
-    padding: 1vh 0;
-    border-bottom: 1px dashed #cce5d6;
-    display: flex;
-    justify-content: space-between;
     align-items: center;
-    font-size: 1.1em;
+    gap: 20px;
 }
 
-.category-high-scores li:last-child {
-    border-bottom: none;
+.game-over-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.game-over-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--primary-blue);
+    margin: 0;
+}
+
+/* Bu boyut, oyun sonu ekranındaki ikon için ayarlandı */
+.trophy-icon {
+    font-size: 3rem; /* Boyutu küçültüldü */
+    color: #FFD700;
+}
+
+.score-summary {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.final-score-text {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-color-dark);
+    margin: 0;
 }
 
 .score-value {
-    color: #007bff;
-    font-weight: bold;
+    font-weight: 900;
+    font-size: 2.5rem;
+    color: var(--primary-blue);
 }
 
-.category-name {
-    font-weight: bold;
-    color: #555;
+#recordBreakingMessage {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--secondary-blue);
+    text-align: center;
+    width: 100%;
 }
 
-.credits {
-    font-size: 1em;
-    color: #888;
-    margin-top: 4vh;
+.name-input-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    margin-top: 20px;
 }
 
-/* Mobil Uyum */
-@media (max-width: 768px) {
-    .game-container {
-        padding: 2vh;
-        width: 98%;
-    }
-
-    h1 {
-        font-size: 2.5em;
-    }
-
-    h2 {
-        font-size: 2em;
-    }
-
-    button {
-        padding: 1.2vh 2.5vw;
-        font-size: 1.1em;
-    }
-
-    #questionImage {
-        max-height: 35vh;
-    }
-
-    .image-description {
-        font-size: 0.9em;
-    }
-
-    .options-container {
-        gap: 1vh;
-    }
-
-    .final-score-display {
-        font-size: 2em;
-    }
-
-    #recordBreakingMessage {
-        font-size: 1.2em;
-    }
-
-    .game-over-screen {
-        justify-content: flex-start;
-        gap: 1.5vh;
-    }
-    
-    .category-high-scores {
-        margin-top: 1.5vh;
-    }
-
-    .category-buttons, .info-bank-options {
-        grid-template-columns: 1fr;
-    }
+#playerNameInput {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius-large);
+    font-size: 1rem;
+    color: var(--text-color-dark);
 }
 
-@media (max-width: 480px) {
-    .game-container {
-        padding: 1.5vh;
-    }
+#playerNameInput::placeholder {
+    color: #aaa;
+}
 
-    h1 {
-        font-size: 2em;
-    }
+#saveRecordButton {
+    width: 100%;
+    padding: 15px 20px;
+    border: none;
+    border-radius: var(--border-radius-large);
+    background-color: var(--primary-blue);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
 
-    h2 {
-        font-size: 1.8em;
-    }
-    
-    button {
-        font-size: 1em;
-    }
+#saveRecordButton:hover {
+    background-color: var(--secondary-blue);
 }
